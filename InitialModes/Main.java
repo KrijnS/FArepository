@@ -1,4 +1,7 @@
+package InitialModes;
 import java.util.Scanner;
+
+import InitTeam.Competition;
 
 public class Main {
 

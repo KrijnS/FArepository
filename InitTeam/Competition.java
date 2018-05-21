@@ -1,9 +1,13 @@
+package InitTeam;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import InitialModes.Main;
 
 public class Competition {
 	List<Team> teams = new ArrayList<>();

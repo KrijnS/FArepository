@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -42,6 +43,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import InitMisc.Method;
+import InitTeam.Competition;
+import InitTeam.Team;
+import Sounds.Music;
 
 import javax.swing.SwingConstants;
 import javax.swing.Timer;

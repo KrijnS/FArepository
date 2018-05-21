@@ -1,3 +1,4 @@
+package InitMisc;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -19,6 +20,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import GUI.Design;
+import InitTeam.Competition;
+import InitTeam.Goalkeeper;
+import InitTeam.Player;
+import InitTeam.Team;
+import Sounds.Goal;
+
 public class Method {
 	Random rand = new Random();
 
@@ -26,7 +34,7 @@ public class Method {
 			List<Team> competitionToFace, List<Team> competitionCompetitors) {
 		competitionFaced.add(competition.getTeams().get(club));
 
-		for (int i = 0; i < competition.teams.size(); i++) {
+		for (int i = 0; i < competition.getTeams().size(); i++) {
 			competitionToFace.add(competition.getTeams().get(i));
 			competitionCompetitors.add(competition.getTeams().get(i));
 		}
@@ -47,26 +55,26 @@ public class Method {
 	public void stats(List<Team> competitionFaced) {
 		System.out.println(
 				competitionFaced.get(0).getName() + " : " + competitionFaced.get(0).getPoints() + " points.\n");
-		for (int i = 0; i < competitionFaced.get(0).players.size(); i++) {
-			if (competitionFaced.get(0).players.get(i).getGoals() == 1) {
-				System.out.println(" #" + competitionFaced.get(0).players.get(i).getNumber() + "  "
-						+ competitionFaced.get(0).players.get(i).getName() + " "
-						+ competitionFaced.get(0).players.get(i).getGoals() + " goal\n");
+		for (int i = 0; i < competitionFaced.get(0).getPlayers().size(); i++) {
+			if (competitionFaced.get(0).getPlayers().get(i).getGoals() == 1) {
+				System.out.println(" #" + competitionFaced.get(0).getPlayers().get(i).getNumber() + "  "
+						+ competitionFaced.get(0).getPlayers().get(i).getName() + " "
+						+ competitionFaced.get(0).getPlayers().get(i).getGoals() + " goal\n");
 			} else {
-				System.out.println(" #" + competitionFaced.get(0).players.get(i).getNumber() + "  "
-						+ competitionFaced.get(0).players.get(i).getName() + " "
-						+ competitionFaced.get(0).players.get(i).getGoals() + " goals\n");
+				System.out.println(" #" + competitionFaced.get(0).getPlayers().get(i).getNumber() + "  "
+						+ competitionFaced.get(0).getPlayers().get(i).getName() + " "
+						+ competitionFaced.get(0).getPlayers().get(i).getGoals() + " goals\n");
 			}
 
 		}
-		if (competitionFaced.get(0).goalkeepers.get(0).getCleanSheets() == 1) {
-			System.out.println(" #" + competitionFaced.get(0).goalkeepers.get(0).getNumber() + "  "
-					+ competitionFaced.get(0).goalkeepers.get(0).getName() + " "
-					+ competitionFaced.get(0).goalkeepers.get(0).getCleanSheets() + " clean sheet\n");
+		if (competitionFaced.get(0).getGoalkeepers().get(0).getCleanSheets() == 1) {
+			System.out.println(" #" + competitionFaced.get(0).getGoalkeepers().get(0).getNumber() + "  "
+					+ competitionFaced.get(0).getGoalkeepers().get(0).getName() + " "
+					+ competitionFaced.get(0).getGoalkeepers().get(0).getCleanSheets() + " clean sheet\n");
 		} else {
-			System.out.println(" #" + competitionFaced.get(0).goalkeepers.get(0).getNumber() + "  "
-					+ competitionFaced.get(0).goalkeepers.get(0).getName() + " "
-					+ competitionFaced.get(0).goalkeepers.get(0).getCleanSheets() + " clean sheets\n");
+			System.out.println(" #" + competitionFaced.get(0).getGoalkeepers().get(0).getNumber() + "  "
+					+ competitionFaced.get(0).getGoalkeepers().get(0).getName() + " "
+					+ competitionFaced.get(0).getGoalkeepers().get(0).getCleanSheets() + " clean sheets\n");
 
 		}
 
@@ -77,7 +85,7 @@ public class Method {
 
 		for (int i = 0; i < competitionCompetitors.size(); i++) {
 			int count = i + 1;
-			System.out.println(" [" + count + "] " + competitionCompetitors.get(i).name);
+			System.out.println(" [" + count + "] " + competitionCompetitors.get(i).getName());
 		}
 		int choiceTeam = sc.nextInt() - 1;
 		competitionCompetitors.get(choiceTeam).display();
@@ -86,7 +94,7 @@ public class Method {
 		int choicePlayer = sc.nextInt();
 		for (int i = 0; i < competitionCompetitors.get(choiceTeam).getPlayers().size(); i++) {
 			if (choicePlayer == competitionCompetitors.get(choiceTeam).getPlayers().get(i).getNumber()
-					|| choicePlayer == competitionCompetitors.get(choiceTeam).goalkeepers.get(0).getNumber()) {
+					|| choicePlayer == competitionCompetitors.get(choiceTeam).getGoalkeepers().get(0).getNumber()) {
 				System.out.println("What would you like to offer for "
 						+ competitionCompetitors.get(choiceTeam).getPlayers().get(i).getName()
 						+ "?        Your budget: " + competitionFaced.get(0).getMoney() + "\n");
@@ -154,13 +162,13 @@ public class Method {
 		for (int x = 0; x < competitionFaced.get(0).getPlayers().size(); x++) {
 			System.out.println(" #" + competitionFaced.get(0).getPlayers().get(x).getNumber() + "\n");
 		}
-		System.out.println(" #" + competitionFaced.get(0).goalkeepers.get(0).getNumber());
+		System.out.println(" #" + competitionFaced.get(0).getGoalkeepers().get(0).getNumber());
 
 		int number = sc.nextInt();
 
 		for (int x = 0; x < competitionFaced.get(0).getPlayers().size(); x++) {
 			while (competitionFaced.get(0).getPlayers().get(x).getNumber() == number
-					|| competitionFaced.get(0).goalkeepers.get(0).getNumber() == number) {
+					|| competitionFaced.get(0).getGoalkeepers().get(0).getNumber() == number) {
 				System.out.println("Please input a number not currently in use.\n");
 				number = sc.nextInt();
 			}
@@ -560,8 +568,8 @@ public class Method {
 		Random rand = new Random();
 
 
-		int team1 = rand.nextInt(competition.teams.size());
-		int team2 = rand.nextInt(competition.teams.size());
+		int team1 = rand.nextInt(competition.getTeams().size());
+		int team2 = rand.nextInt(competition.getTeams().size());
 
 		int loop = rand.nextInt(2) + 0;
 		int loop2 = 0;
@@ -573,12 +581,12 @@ public class Method {
 		int player1 = rand.nextInt(10) + 0;
 		int player2 = rand.nextInt(10) + 0;
 
-		String playerTeam1 = new String(" " + competitionLoop.get(loop).players.get(player1).getName() + " ");
-		String playerTeam2 = new String(" " + competitionLoop.get(loop2).players.get(player2).getName() + " ");
-		String keeper = new String(" " + competitionLoop.get(loop2).goalkeepers.get(0).getName() + " ");
+		String playerTeam1 = new String(" " + competitionLoop.get(loop).getPlayers().get(player1).getName() + " ");
+		String playerTeam2 = new String(" " + competitionLoop.get(loop2).getPlayers().get(player2).getName() + " ");
+		String keeper = new String(" " + competitionLoop.get(loop2).getGoalkeepers().get(0).getName() + " ");
 
 		if (team1 == team2) {
-			team2 = rand.nextInt(competition.teams.size());
+			team2 = rand.nextInt(competition.getTeams().size());
 		}
 
 		int i = 0;

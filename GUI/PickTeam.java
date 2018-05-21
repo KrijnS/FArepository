@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -22,9 +23,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import InitMisc.Method;
+import InitTeam.Competition;
+import InitTeam.Goalkeeper;
+import InitTeam.Player;
+import InitTeam.Team;
 
 
-public class ShowTeam {
+
+public class PickTeam {
 	
 Formations form = new Formations();
 	
@@ -36,7 +43,7 @@ Formations form = new Formations();
 	List<Team> teams = null;
 	Competition special = new Competition(teams);
 
-	public void showAll(Container pane, JLabel backGround, JLabel logoLabel, Design des) {
+	public void pickAll(Container pane, JLabel backGround, JLabel logoLabel, Design des) {
 		showLeagues(pane, des, logoLabel, backGround);
 	}
 	
@@ -62,7 +69,7 @@ Formations form = new Formations();
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showFormation(x, backGround, logoLabel, clubLogo, pane, des, special);
+				pickFormation(x, backGround, logoLabel, clubLogo, pane, des, special);
 			}
 		});
 
@@ -180,7 +187,7 @@ Formations form = new Formations();
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showFormation(z, backGround, logoLabel, clubLogo, pane, des, special);
+				pickFormation(z, backGround, logoLabel, clubLogo, pane, des, special);
 			}
 		});
 
@@ -265,7 +272,7 @@ Formations form = new Formations();
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(387, 28, 105, 34);
 		Design.buttonDesign(backButton);
-
+		
 		JPanel container = new JPanel();
 		container.setOpaque(false);
 		GridLayout gl = new GridLayout(0, 1, 50, 60);
@@ -329,7 +336,7 @@ Formations form = new Formations();
 						JLabel clubLogo = new JLabel(logo);
 						clubLogo.setBounds(30, 470, 134, 134);
 						
-						showFormation(z, backGround, logoLabel, clubLogo, pane, des, special);
+						pickFormation(z, backGround, logoLabel, clubLogo, pane, des, special);
 					}
 				});
 
@@ -474,12 +481,12 @@ Formations form = new Formations();
 		pane.setVisible(true);
 	}
 	
-	public void showFormation(Team x, JLabel backGround, JLabel logoLabel, JLabel clubLogo, Container pane, Design des, Competition special) {
+	public void pickFormation(Team x, JLabel backGround, JLabel logoLabel, JLabel clubLogo, Container pane, Design des, Competition special) {
 		pane.removeAll();
 		
 		Competition specialTwo = special;
 		
-		showKeeper(x, x.goalkeepers.get(0), clubLogo, backGround, logoLabel, pane, des);
+		showKeeper(x, x.getGoalkeepers().get(0), clubLogo, backGround, logoLabel, pane, des);
 		
 		Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
 		Color textColor = Color.white;
@@ -487,6 +494,10 @@ Formations form = new Formations();
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(387, 28, 105, 34);
 		Design.buttonDesign(backButton);
+		
+		JButton confirmButton = new JButton("Confirm");
+		confirmButton.setBounds(20, 128, 105, 34);
+		Design.buttonDesign(confirmButton);
 
 		JLabel formation = new JLabel(x.getFormation());
 		formation.setBounds(39, 206, 96, 48);
@@ -659,12 +670,21 @@ Formations form = new Formations();
 		pane.add(nine);
 		pane.add(ten);
 		
+		pane.add(confirmButton);
 		pane.add(backButton);
 		pane.add(logoLabel);
 		pane.add(backGround);
 		
 		pane.revalidate();
 		pane.repaint();
+		
+		confirmButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pane.removeAll();
+				pane.revalidate();
+				pane.repaint();
+			}
+		});
 
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

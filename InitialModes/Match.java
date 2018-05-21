@@ -1,3 +1,4 @@
+package InitialModes;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,6 +7,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import InitMisc.Method;
+import InitTeam.*;
+import Sounds.Crowd;
+import Sounds.FinalWhistle;
+import Sounds.Goal;
 
 public class Match implements Runnable{
 	static String goal = new String("\n" + "|||||||||   |||||||||      ||||      ||" + "\n"
@@ -31,9 +38,9 @@ public class Match implements Runnable{
 			
 			System.out.println(chooseTeam);
 			
-			for(int i = 0; i < competition.teams.size(); i++) {
+			for(int i = 0; i < competition.getTeams().size(); i++) {
 				int count = i + 1;
-				System.out.println(" [" + count + "] " + competition.getTeams().get(i).name);
+				System.out.println(" [" + count + "] " + competition.getTeams().get(i).getName());
 			}
 			int time = 0;
 			
@@ -75,9 +82,9 @@ public class Match implements Runnable{
 				int player1 = rand.nextInt(10) + 0;
 				int player2 = rand.nextInt(10) + 0;
 				
-				String playerTeam1 = new String(" " + competitionLoop.get(loop).players.get(player1).getName() + " ");
-				String playerTeam2 = new String(" " + competitionLoop.get(loop2).players.get(player2).getName() + " ");
-				String keeper = new String(" " + competitionLoop.get(loop2).goalkeepers.get(0).getName() + " ");
+				String playerTeam1 = new String(" " + competitionLoop.get(loop).getPlayers().get(player1).getName() + " ");
+				String playerTeam2 = new String(" " + competitionLoop.get(loop2).getPlayers().get(player2).getName() + " ");
+				String keeper = new String(" " + competitionLoop.get(loop2).getGoalkeepers().get(0).getName() + " ");
 				
 				File scenarios = new File("scenarios.txt");
 				Scanner in;
@@ -121,8 +128,8 @@ public class Match implements Runnable{
 					e.printStackTrace();
 				}
 
-				if (competitionLoop.get(loop).players.get(player1).getAttack() + rand.nextInt(20)
-						+ 5 > competitionLoop.get(loop2).players.get(player2).getDefense() + rand.nextInt(30) + 10) {
+				if (competitionLoop.get(loop).getPlayers().get(player1).getAttack() + rand.nextInt(20)
+						+ 5 > competitionLoop.get(loop2).getPlayers().get(player2).getDefense() + rand.nextInt(30) + 10) {
 					System.out.println(scenarioTwo.get(choice));
 										
 					try {
@@ -132,8 +139,8 @@ public class Match implements Runnable{
 						e.printStackTrace();
 					}
 
-					if (competitionLoop.get(loop).players.get(player1).getAttack() + rand.nextInt(20)
-							+ 5 > competitionLoop.get(loop2).goalkeepers.get(0).getGoalkeeping() + rand.nextInt(25) + 10) {
+					if (competitionLoop.get(loop).getPlayers().get(player1).getAttack() + rand.nextInt(20)
+							+ 5 > competitionLoop.get(loop2).getGoalkeepers().get(0).getGoalkeeping() + rand.nextInt(25) + 10) {
 						new Thread(new Goal()).start();
 						try {
 							TimeUnit.SECONDS.sleep(1);

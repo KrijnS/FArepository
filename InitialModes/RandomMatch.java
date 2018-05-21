@@ -1,3 +1,4 @@
+package InitialModes;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,6 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import InitMisc.Method;
+import InitTeam.Competition;
+import InitTeam.Team;
+import Sounds.Crowd;
+import Sounds.FinalWhistle;
+import Sounds.Goal;
 
 public class RandomMatch implements Runnable{
 	static String goal = new String("\n" + "|||||||||   |||||||||      ||||      ||" + "\n"
@@ -67,9 +75,9 @@ public class RandomMatch implements Runnable{
 				int player1 = rand.nextInt(10) + 0;
 				int player2 = rand.nextInt(10) + 0;
 			
-				String playerTeam1 = new String(" " + competitionLoop.get(loop).players.get(player1).getName() + " ");
-				String playerTeam2 = new String(" " + competitionLoop.get(loop2).players.get(player2).getName() + " ");
-				String keeper = new String(" " + competitionLoop.get(loop2).goalkeepers.get(0).getName() + " ");
+				String playerTeam1 = new String(" " + competitionLoop.get(loop).getPlayers().get(player1).getName() + " ");
+				String playerTeam2 = new String(" " + competitionLoop.get(loop2).getPlayers().get(player2).getName() + " ");
+				String keeper = new String(" " + competitionLoop.get(loop2).getGoalkeepers().get(0).getName() + " ");
 				
 				File scenarios = new File("C:/Users/Krijn/Downloads/Football App/Text files/scenarios.txt");
 				Scanner in;
@@ -113,8 +121,8 @@ public class RandomMatch implements Runnable{
 					e.printStackTrace();
 				}
 
-				if (competitionLoop.get(loop).players.get(player1).getAttack() + rand.nextInt(20)
-						+ 5 > competitionLoop.get(loop2).players.get(player2).getDefense() + rand.nextInt(30) + 10) {
+				if (competitionLoop.get(loop).getPlayers().get(player1).getAttack() + rand.nextInt(20)
+						+ 5 > competitionLoop.get(loop2).getPlayers().get(player2).getDefense() + rand.nextInt(30) + 10) {
 					System.out.println(scenarioTwo.get(choice));
 					
 					try {
@@ -124,8 +132,8 @@ public class RandomMatch implements Runnable{
 						e.printStackTrace();
 					}
 
-					if (competitionLoop.get(loop).players.get(player1).getAttack() + rand.nextInt(20)
-							+ 5 > competitionLoop.get(loop2).goalkeepers.get(0).getGoalkeeping() + rand.nextInt(25) + 10) {
+					if (competitionLoop.get(loop).getPlayers().get(player1).getAttack() + rand.nextInt(20)
+							+ 5 > competitionLoop.get(loop2).getGoalkeepers().get(0).getGoalkeeping() + rand.nextInt(25) + 10) {
 						new Thread(new Goal()).start();
 						try {
 							TimeUnit.SECONDS.sleep(1);
