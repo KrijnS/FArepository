@@ -115,4 +115,33 @@ public class Competition {
 		return x;
 	}
 
+	public static ArrayList<Player> allPlayers() {
+		Competition x = readCompetition();
+		
+		ArrayList<Player> playerList = new ArrayList<>();
+		for(int i = 0; i < x.getTeams().size(); i++) {
+			for(int j = 0; j < x.getTeams().get(i).getPlayers().size(); j++) {
+				playerList.add(x.getTeams().get(i).getPlayers().get(j));
+			}
+		}
+	
+		return playerList;
+	}
+	
+	public static String [] playersContaining(String input) {
+		ArrayList<Player> allPlayers = allPlayers();
+		
+		ArrayList<String> containingPlayers = new ArrayList<>();
+		for(int i = 0; i < allPlayers.size(); i++) {
+			if(allPlayers.get(i).getName().contains(input)) {
+				containingPlayers.add(allPlayers.get(i).getName());
+			}
+		}
+		String [] playerList = new String [containingPlayers.size()];
+		for(int i = 0; i < containingPlayers.size(); i++) {
+			playerList[i] = containingPlayers.get(i);
+		}
+		return playerList;
+	}
+
 }

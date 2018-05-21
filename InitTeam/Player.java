@@ -193,4 +193,5 @@ public class Player {
 		int c = (int) z;
 		return c;
 	}
+	
 }

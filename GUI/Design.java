@@ -69,6 +69,8 @@ public class Design {
 	PickTeam pick = new PickTeam();
 	
 	ShowTeam show = new ShowTeam();
+	
+	Transfer trans = new Transfer();
 
 	private JFrame frame;
 
@@ -331,7 +333,7 @@ public class Design {
 
 		toGlory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				chooseTeam();
+				transfer();
 			}
 		});
 
@@ -386,5 +388,10 @@ public class Design {
 		Container pane = frame.getContentPane();
 		Design des = this;
 		show.showAll(pane, backGround, logoLabel, des);
+	}
+	public void transfer() {
+		Container pane = frame.getContentPane();
+		Design des = this;
+		trans.transferWindow(backGround, logoLabel, pane, des);
 	}
 }
