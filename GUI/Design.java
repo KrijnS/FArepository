@@ -102,14 +102,23 @@ public class Design {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ImageIcon icon = new ImageIcon(getClass().getResource("championsIcon.png"));
+		Image iconImg = null;
 		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/championsIcon.png";
+			File iconFile = new File(fileName);
+			iconImg = ImageIO.read(iconFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		frame = new JFrame("Football App");
 		frame.setBounds(100, 100, 510, 768);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		frame.setIconImage(icon.getImage());
+		frame.setIconImage(iconImg);
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -176,11 +185,34 @@ public class Design {
 		frame.getContentPane().add(match);
 		frame.getContentPane().add(toGlory);
 		frame.getContentPane().add(showSelection);
+		
+		Image logoImg = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/footballLogo.png";
+			File iconFile = new File(fileName);
+			logoImg = ImageIO.read(iconFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		ImageIcon logo = new ImageIcon(getClass().getResource("footballLogo.png"));
+		ImageIcon logo = new ImageIcon(logoImg);
 
-		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
-
+		Image backgroundImg = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/background.jpg";
+			File iconFile = new File(fileName);
+			backgroundImg = ImageIO.read(iconFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ImageIcon background = new ImageIcon(backgroundImg);
+		
+		
 		logoLabel = new JLabel(logo);
 		logoLabel.setBounds(107, 45, 312, 159);
 		frame.getContentPane().add(logoLabel);
@@ -246,15 +278,31 @@ public class Design {
 				scoreLabel.setFont(scoreFont);
 				scoreLabel.setForeground(textColor);
 
-				ImageIcon wrongSize = new ImageIcon(getClass().getResource(one.getLogoPath()));
-				Image img = wrongSize.getImage();
+				Image img = null;
+				
+				try {
+					String fileName = "/Users/Krijn/Downloads/Football App/Club Logo/" + one.getLogoPath();
+					File iconFile = new File(fileName);
+					img = ImageIO.read(iconFile);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Image newImg = img.getScaledInstance(63, 67, Image.SCALE_SMOOTH);
 				ImageIcon logo = new ImageIcon(newImg);
 				JLabel clubLogo = new JLabel(logo);
 				clubLogo.setBounds(12, 276, 63, 67);
 
-				ImageIcon wrongSize2 = new ImageIcon(getClass().getResource(two.getLogoPath()));
-				Image img2 = wrongSize2.getImage();
+				Image img2 = null;
+				
+				try {
+					String fileName = "/Users/Krijn/Downloads/Football App/Club Logo/" + two.getLogoPath();
+					File iconFile = new File(fileName);
+					img2 = ImageIO.read(iconFile);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Image newImg2 = img2.getScaledInstance(63, 67, Image.SCALE_SMOOTH);
 				ImageIcon logo2 = new ImageIcon(newImg2);
 				JLabel clubLogo2 = new JLabel(logo2);
