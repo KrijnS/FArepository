@@ -160,8 +160,15 @@ Formations form = new Formations();
 		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
 		Color textColor = Color.white;
 		
-		ImageIcon wrongSize = new ImageIcon(getClass().getResource(z.getLogoPath()));
-		Image img = wrongSize.getImage();
+		Image img = null;
+		try {
+			String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + z.getLogoPath();
+			File clubFile = new File(getPng);
+			img = ImageIO.read(clubFile);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Image newImg = img.getScaledInstance(134, 134, Image.SCALE_SMOOTH);
 		ImageIcon logo = new ImageIcon(newImg);
 		JLabel clubLogo = new JLabel(logo);
@@ -284,8 +291,15 @@ Formations form = new Formations();
 				String team = teams[i - 1];
 				JButton btn_user = new JButton(team);
 				z = Competition.getTeamFromName(team, competition);
-				ImageIcon wrongSize = new ImageIcon(getClass().getResource(z.getLogoPath()));
-				Image img = wrongSize.getImage();
+				Image img = null;
+				try {
+					String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + z.getLogoPath();
+					File clubFile = new File(getPng);
+					img = ImageIO.read(clubFile);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Image newImg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 				ImageIcon logo = new ImageIcon(newImg);
 				JLabel logoTeam = new JLabel(logo);
@@ -301,8 +315,15 @@ Formations form = new Formations();
 						currentTeam = team;
 						Team z = Competition.getTeamFromName(currentTeam, competition);
 						
-						ImageIcon wrongSize = new ImageIcon(getClass().getResource(z.getLogoPath()));
-						Image img = wrongSize.getImage();
+						Image img = null;
+						try {
+							String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + z.getLogoPath();
+							File clubFile = new File(getPng);
+							img = ImageIO.read(clubFile);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						Image newImg = img.getScaledInstance(134, 134, Image.SCALE_SMOOTH);
 						ImageIcon logo = new ImageIcon(newImg);
 						JLabel clubLogo = new JLabel(logo);
@@ -478,8 +499,15 @@ Formations form = new Formations();
 		formation.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		pane.add(formation);
 
-		ImageIcon wrongSize = new ImageIcon(getClass().getResource(x.getLogoPath()));
-		Image img = wrongSize.getImage();
+		Image img = null;
+		try {
+			String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + x.getLogoPath();
+			File clubFile = new File(getPng);
+			img = ImageIO.read(clubFile);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Image newImg = img.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
 		ImageIcon logo = new ImageIcon(newImg);
 
