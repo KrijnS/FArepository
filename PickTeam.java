@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -383,8 +384,9 @@ Formations form = new Formations();
 				Design.buttonDesign(btn_user);
 				Image img = null;
 				try {
-					String getPng = league + ".png";
-					img = ImageIO.read(getClass().getResource(getPng));
+					String getPng = "/Users/Krijn/Downloads/Football App/League Logo/" + league + ".png";
+					File leagueFile = new File(getPng);
+					img = ImageIO.read(leagueFile);
 				} catch (MalformedURLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
