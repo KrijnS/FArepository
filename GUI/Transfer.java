@@ -13,6 +13,8 @@ import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -28,6 +30,7 @@ import javax.swing.border.LineBorder;
 
 import InitTeam.Competition;
 import InitTeam.Goalkeeper;
+import InitTeam.Player;
 import InitTeam.Team;
 
 
@@ -112,6 +115,48 @@ public class Transfer {
 						btn_user.setContentAreaFilled(false);
 						btn_user.setForeground(textColor);
 						btn_user.setBorder(null);
+						
+						ArrayList<Player> playerList = Competition.playerFromName(player);
+						if(!(playerList.isEmpty())) {
+							Player newPlayer = playerList.get(0);
+							Image img = null;
+							try {
+								URL url = new URL(newPlayer.getPhotoPath());
+								img = ImageIO.read(url);
+							} catch (MalformedURLException e1) {
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+							Image imgNew = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+							ImageIcon leagueLogo = new ImageIcon(imgNew);
+							JLabel logoMini = new JLabel(leagueLogo);
+							logoMini.setSize(50, 50);
+							btn_user.add(logoMini);
+						}
+
+						ArrayList<Goalkeeper> keeperList = Competition.keeperFromName(player);
+						if(!(keeperList.isEmpty())) {
+							Goalkeeper newKeeper = keeperList.get(0);
+							Image img = null;
+							try {
+								URL url = new URL(newKeeper.getPhotoPath());
+								img = ImageIO.read(url);
+							} catch (MalformedURLException e1) {
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+							Image imgNew = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+							ImageIcon leagueLogo = new ImageIcon(imgNew);
+							JLabel logoMini = new JLabel(leagueLogo);
+							logoMini.setSize(50, 50);
+							btn_user.add(logoMini);
+						}
 						//Image img = null;
 						//try {
 						//	String getPng = "/Users/Krijn/Downloads/Football App/League Logo/" + league + ".png";

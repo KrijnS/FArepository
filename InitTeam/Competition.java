@@ -115,26 +115,27 @@ public class Competition {
 		return x;
 	}
 
-	public static ArrayList<Player> allPlayers() {
+	public static ArrayList<String> allPlayers() {
 		Competition x = readCompetition();
 		
-		ArrayList<Player> playerList = new ArrayList<>();
+		ArrayList<String> playerList = new ArrayList<>();
 		for(int i = 0; i < x.getTeams().size(); i++) {
 			for(int j = 0; j < x.getTeams().get(i).getPlayers().size(); j++) {
-				playerList.add(x.getTeams().get(i).getPlayers().get(j));
+				playerList.add(x.getTeams().get(i).getPlayers().get(j).getName());
 			}
+			playerList.add(x.getTeams().get(i).getGoalkeepers().get(0).getName());
 		}
 	
 		return playerList;
 	}
 	
 	public static String [] playersContaining(String input) {
-		ArrayList<Player> allPlayers = allPlayers();
+		ArrayList<String> allPlayers = allPlayers();
 		
 		ArrayList<String> containingPlayers = new ArrayList<>();
 		for(int i = 0; i < allPlayers.size(); i++) {
-			if(allPlayers.get(i).getName().contains(input)) {
-				containingPlayers.add(allPlayers.get(i).getName());
+			if(allPlayers.get(i).contains(input)) {
+				containingPlayers.add(allPlayers.get(i));
 			}
 		}
 		String [] playerList = new String [containingPlayers.size()];
@@ -144,4 +145,29 @@ public class Competition {
 		return playerList;
 	}
 
+	public static ArrayList<Player> playerFromName(String input) {
+		Competition x = readCompetition();
+		
+		ArrayList<Player> player = new ArrayList<>();
+		for(int i = 0; i < x.getTeams().size(); i++) {
+			for(int j = 0; j < x.getTeams().get(i).getPlayers().size(); j++) {
+				if(x.getTeams().get(i).getPlayers().get(j).getName().equalsIgnoreCase(input)) {
+					player.add(x.getTeams().get(i).getPlayers().get(j));
+				}
+			}
+		}
+		return player;
+	}
+	
+	public static ArrayList<Goalkeeper> keeperFromName(String input) {
+		Competition x = readCompetition();
+		
+		ArrayList<Goalkeeper> keeper = new ArrayList<>();
+		for(int i = 0; i < x.getTeams().size(); i++) {
+			if(x.getTeams().get(i).getGoalkeepers().get(0).getName().equalsIgnoreCase(input)) {
+				keeper.add(x.getTeams().get(i).getGoalkeepers().get(0));
+			}
+		}
+		return keeper;
+	}
 }
