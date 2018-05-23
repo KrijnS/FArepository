@@ -69,6 +69,8 @@ public class Design {
 	PickTeam pick = new PickTeam();
 	
 	ShowTeam show = new ShowTeam();
+	
+	Transfer trans = new Transfer();
 
 	private JFrame frame;
 
@@ -217,7 +219,7 @@ public class Design {
 		logoLabel.setBounds(107, 45, 312, 159);
 		frame.getContentPane().add(logoLabel);
 		backGround = new JLabel(background);
-		backGround.setBounds(0, 0, 504, 733);
+		backGround.setBounds(0, 0, 504, 740);
 		frame.getContentPane().add(backGround);
 
 		randomMatch.addActionListener(new ActionListener() {
@@ -331,7 +333,7 @@ public class Design {
 
 		toGlory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				chooseTeam();
+				transfer();
 			}
 		});
 
@@ -386,5 +388,11 @@ public class Design {
 		Container pane = frame.getContentPane();
 		Design des = this;
 		show.showAll(pane, backGround, logoLabel, des);
+	}
+	public void transfer() {
+		Container pane = frame.getContentPane();
+		Design des = this;
+		String input = null;
+		trans.transferWindow(backGround, logoLabel, pane, des, input);
 	}
 }

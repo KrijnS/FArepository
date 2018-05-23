@@ -84,35 +84,167 @@ public class Competition {
 
 	}
 	
+	public static ArrayList<Player> readAllPlayers() {
+				ArrayList<Player> players = new ArrayList<>();
+
+			try {
+				in = new Scanner(new FileReader("C:/Users/Krijn/Downloads/Football App/Text files/noSpecial.txt"));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			while (in.hasNextLine()) {
+				Team y = Team.readTeamName(in);
+				for (int i = 0; i < 10; i++) {
+					players.add(Team.readPlayers(in));
+				}
+				y.getGoalkeepers().add(Team.readGoalkeeper(in));
+			}
+
+			return players;
+
+		
+	}
+	
+	public static ArrayList<Goalkeeper> readAllKeepers() {
+		ArrayList<Goalkeeper> players = new ArrayList<>();
+
+	try {
+		in = new Scanner(new FileReader("C:/Users/Krijn/Downloads/Football App/Text files/noSpecial.txt"));
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	while (in.hasNextLine()) {
+		Team y = Team.readTeamName(in);
+		for (int i = 0; i < 10; i++) {
+			Player x = Team.readPlayers(in);
+		}
+		players.add(Team.readGoalkeeper(in));
+	}
+
+	return players;
+
+
+}
+
 	public static Competition readSpecialComp(String compName) {
 		List<Team> teams = new ArrayList<>();
-		
+
 		Competition x = readCompetition();
 		Competition comp = new Competition(teams);
-		for(int i = 0; i < x.getTeams().size(); i++) {
-			if(x.getTeams().get(i).getLeague().contains(compName)) {
+		for (int i = 0; i < x.getTeams().size(); i++) {
+			if (x.getTeams().get(i).getLeague().contains(compName)) {
 				comp.getTeams().add(x.getTeams().get(i));
 			}
 		}
 		return comp;
 	}
-	
+
 	public static String[] competitionNames(Competition competition) {
 		String[] teamNames = new String[competition.teams.size()];
-		for(int i = 0; i < competition.teams.size(); i++) {
+		for (int i = 0; i < competition.teams.size(); i++) {
 			teamNames[i] = competition.teams.get(i).getName();
 		}
 		return teamNames;
 	}
-	
+
 	public static Team getTeamFromName(String currentTeam, Competition competition) {
 		Team x = new Team(null, 0, null, null, 0, 0, null, null, null);
-		for(int i = 0; i < competition.teams.size(); i++) {
-			if(competition.getTeams().get(i).getName().equals(currentTeam)) {
+		for (int i = 0; i < competition.teams.size(); i++) {
+			if (competition.getTeams().get(i).getName().equals(currentTeam)) {
 				x = competition.getTeams().get(i);
 			}
 		}
 		return x;
+	}
+
+	public static ArrayList<String> allPlayers() {
+		ArrayList<Player> allPlayers = readAllPlayers();
+		ArrayList<Goalkeeper> allKeepers = readAllKeepers();
+
+		ArrayList<String> playerList = new ArrayList<>();
+			for (int i = 0; i < allPlayers.size(); i++) {
+				playerList.add(allPlayers.get(i).getName());
+			}
+			
+		for (int i = 0; i < allKeepers.size(); i++) {
+			playerList.add(allKeepers.get(i).getName());
+		}
+
+		return playerList;
+	}
+
+	public static String[] playersContaining(String input) {
+		ArrayList<String> allPlayers = allPlayers();
+
+		ArrayList<String> containingPlayers = new ArrayList<>();
+		for (int i = 0; i < allPlayers.size(); i++) {
+			if (allPlayers.get(i).toLowerCase().contains(input.toLowerCase())) {
+				containingPlayers.add(allPlayers.get(i));
+			}
+		}
+		String[] playerList = new String[containingPlayers.size()];
+		for (int i = 0; i < containingPlayers.size(); i++) {
+			playerList[i] = containingPlayers.get(i);
+		}
+		return playerList;
+	}
+
+	public static ArrayList<Player> playerFromName(String input) {
+		ArrayList<Player> player = readAllPlayers();
+		
+		ArrayList<Player> playerName = new ArrayList<>();
+		
+		for (int i = 0; i < player.size(); i++) {
+				if (input.equals(player.get(i).getName())) {
+					playerName.add(player.get(i));
+				
+			}
+		}
+		return playerName;
+	}
+
+	public static ArrayList<Goalkeeper> keeperFromName(String input) {
+		ArrayList<Goalkeeper> allKeepers = readAllKeepers();
+
+		ArrayList<Goalkeeper> keeper = new ArrayList<>();
+		for (int i = 0; i < allKeepers.size(); i++) {
+			if (input.equals(allKeepers.get(i).getName())) {
+				keeper.add(allKeepers.get(i));
+			}
+		}
+		return keeper;
+	}
+	
+	public static String getTeamNamePlayer(Player x) {
+		Competition z = readCompetition();
+		
+		ArrayList<String> team = new ArrayList<>();
+		
+		for(int i = 0; i < z.getTeams().size(); i++) {
+			for( int j = 0; j < z.getTeams().get(i).getPlayers().size(); j++) {
+				if(z.getTeams().get(i).getPlayers().get(j).getName().equals(x.getName())) {
+					team.add(z.getTeams().get(i).getName());
+				}
+			}
+		}
+		return team.get(0);
+	}
+	
+	public static String getTeamNameKeeper(Goalkeeper x) {
+		Competition z = readCompetition();
+		
+		ArrayList<String> team = new ArrayList<>();
+		
+		for(int i = 0; i < z.getTeams().size(); i++) {
+			if(z.getTeams().get(i).getGoalkeepers().get(0).getName().equals(x.getName())) {
+				team.add(z.getTeams().get(i).getName());
+			}
+		}
+		return team.get(0);
 	}
 
 }
