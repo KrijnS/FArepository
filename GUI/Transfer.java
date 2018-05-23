@@ -36,6 +36,8 @@ import InitTeam.Team;
 
 
 public class Transfer {
+	String currentPlayer;
+	Competition competition = Competition.readCompetition();
 	
 	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des) {
 		pane.removeAll();
@@ -148,6 +150,18 @@ public class Transfer {
 							
 							btn_user.setPreferredSize(new Dimension(350, 50));
 							container.add(btn_user);
+							
+							// add the actionlistener for the buttons
+							btn_user.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									currentPlayer = player;
+
+									Player chosenPlayer = Competition.playerFromName(currentPlayer).get(0);
+
+									showPlayer(chosenPlayer, pane, des, logoLabel, backGround);
+
+								}
+							});
 						}
 
 						ArrayList<Goalkeeper> keeperList = Competition.keeperFromName(player);
@@ -185,40 +199,20 @@ public class Transfer {
 							
 							btn_user.setPreferredSize(new Dimension(350, 50));
 							container.add(btn_user);
+							
+							// add the actionlistener for the buttons
+							btn_user.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									currentPlayer = player;
+
+									Goalkeeper keeper = Competition.keeperFromName(currentPlayer).get(0);
+
+									showKeeper(pane, keeper, des, logoLabel, backGround);
+
+								}
+							});
 						}
-						//Image img = null;
-						//try {
-						//	String getPng = "/Users/Krijn/Downloads/Football App/League Logo/" + league + ".png";
-						//	File leagueFile = new File(getPng);
-						//	img = ImageIO.read(leagueFile);
-						//} catch (MalformedURLException e1) {
-						//	// TODO Auto-generated catch block
-						//	e1.printStackTrace();
-						//} catch (IOException e1) {
-						//	// TODO Auto-generated catch block
-						//	e1.printStackTrace();
-						//}
-						//Image imgNew = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-						//ImageIcon leagueLogo = new ImageIcon(imgNew);
-						//JLabel logoMini = new JLabel(leagueLogo);
-						//logoMini.setSize(50, 50);
-						//btn_user.add(logoMini);
-						
-						//btn_user.setPreferredSize(new Dimension(350, 50));
-						//container.add(btn_user);
 						i = i - 1;
-
-						// add the actionlistener for the buttons
-						//btn_user.addActionListener(new ActionListener() {
-						//	public void actionPerformed(ActionEvent e) {
-						//		currentPlayer = league;
-
-						//		special = Competition.readSpecialComp(currentLeague);
-
-						//		showTeams(backGround, logoLabel, special, pane, des);
-
-						//	}
-						//});
 
 					}
 
@@ -260,5 +254,228 @@ public class Transfer {
 		
 		pane.revalidate();
 		pane.repaint();
+	}
+	
+	public void showKeeper(Container pane, Goalkeeper x, Design des, JLabel logoLabel, JLabel backGround) {
+		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
+		Color textColor = Color.white;
+		
+		String teamName = Competition.getTeamNameKeeper(x);
+		Team z = Competition.getTeamFromName(teamName, competition);
+
+		pane.removeAll();
+		
+		Image clubImg = null;
+		try {
+			String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + z.getLogoPath();
+			File clubFile = new File(getPng);
+			clubImg = ImageIO.read(clubFile);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Image newClubImg = clubImg.getScaledInstance(134, 134, Image.SCALE_SMOOTH);
+		ImageIcon logo = new ImageIcon(newClubImg);
+		JLabel clubLogo = new JLabel(logo);
+		clubLogo.setBounds(30, 470, 134, 134);
+
+		Image img = null;
+		try {
+			URL url = new URL(x.getPhotoPath());
+			img = ImageIO.read(url);
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		Image newImg = img.getScaledInstance(134, 134, Image.SCALE_SMOOTH);
+		ImageIcon photo = new ImageIcon(newImg);
+		JLabel playerPhoto = new JLabel(photo);
+		playerPhoto.setBounds(30, 300, 134, 134);
+
+		pane.add(playerPhoto);
+		
+		JButton backButton = new JButton("Back");
+		backButton.setBounds(387, 28, 105, 34);
+		Design.buttonDesign(backButton);
+		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				transferWindow(backGround, logoLabel, pane, des);
+			}
+		});
+
+		JLabel nameNumber = new JLabel("#" + x.getNumber() + " " + z.getName());
+		nameNumber.setBounds(135, 285, 322, 51);
+
+		JLabel positions = new JLabel("Positions: " + x.getPosition());
+		positions.setBounds(135, 365, 322, 51);
+		positions.setOpaque(false);
+		positions.setForeground(textColor);
+		positions.setFont(font);
+		positions.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JLabel team = new JLabel(x.getName());
+		team.setBounds(135, 445, 322, 51);
+
+		JLabel value = new JLabel();
+		value.setBounds(135, 525, 322, 51);
+		
+		if(x.getName().equals("Icons")) {
+			value.setText("Value:  -");
+		}
+		else{
+			value.setText("Value: " + x.getValue()  + ".000.000");
+		}
+
+		JLabel ageAttackDefense = new JLabel("Age: " + x.getAge() + " Goalkeeping: " + x.getGoalkeeping());
+		ageAttackDefense.setBounds(135, 605, 322, 51);
+
+		nameNumber.setOpaque(false);
+		team.setOpaque(false);
+		value.setOpaque(false);
+		ageAttackDefense.setOpaque(false);
+
+		nameNumber.setForeground(textColor);
+		team.setForeground(textColor);
+		value.setForeground(textColor);
+		ageAttackDefense.setForeground(textColor);
+
+		nameNumber.setFont(font);
+		team.setFont(font);
+		value.setFont(font);
+		ageAttackDefense.setFont(font);
+
+		nameNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		team.setHorizontalAlignment(SwingConstants.CENTER);
+		value.setHorizontalAlignment(SwingConstants.CENTER);
+		ageAttackDefense.setHorizontalAlignment(SwingConstants.CENTER);
+
+		pane.add(clubLogo);
+		pane.add(nameNumber);
+		pane.add(team);
+		pane.add(backButton);
+		pane.add(value);
+		pane.add(ageAttackDefense);
+		pane.add(positions);
+		pane.add(logoLabel);
+		pane.add(backGround);
+
+		pane.revalidate();
+		pane.repaint();
+	}
+	
+	public void showPlayer(Player x, Container pane, Design des, JLabel logoLabel, JLabel backGround) {
+		pane.removeAll();
+		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
+		Color textColor = Color.white;
+		
+		String teamName = Competition.getTeamNamePlayer(x);
+		Team z = Competition.getTeamFromName(teamName, competition);
+		
+		Image img = null;
+		try {
+			String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + z.getLogoPath();
+			File clubFile = new File(getPng);
+			img = ImageIO.read(clubFile);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Image newImg = img.getScaledInstance(134, 134, Image.SCALE_SMOOTH);
+		ImageIcon logo = new ImageIcon(newImg);
+		JLabel clubLogo = new JLabel(logo);
+		clubLogo.setBounds(30, 470, 134, 134);
+		
+		JButton backButton = new JButton("Back");
+		backButton.setBounds(387, 28, 105, 34);
+		Design.buttonDesign(backButton);
+		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				transferWindow(backGround, logoLabel, pane, des);
+			}
+		});
+
+		Image image = null;
+		try {
+			URL url = new URL(x.getPhotoPath());
+			image = ImageIO.read(url);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Image newImage = image.getScaledInstance(134, 134, Image.SCALE_SMOOTH);
+		ImageIcon playerPicture = new ImageIcon(newImage);
+		JLabel playerPhoto = new JLabel(playerPicture);
+		playerPhoto.setBounds(30, 300, 134, 134);
+
+		JLabel nameNumber = new JLabel("#" + x.getNumber() + " " + x.getName());
+		nameNumber.setBounds(135, 305, 322, 51);
+
+		JLabel positions = new JLabel("Positions: " + x.getPosition());
+		positions.setBounds(135, 385, 322, 51);
+		positions.setOpaque(false);
+		positions.setForeground(textColor);
+		positions.setFont(font);
+		positions.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JLabel team = new JLabel(z.getName());
+		team.setBounds(135, 465, 322, 51);
+		
+		JLabel value = new JLabel();
+		value.setBounds(135, 545, 322, 51);
+
+		if(z.getName().equals("Icons")) {
+			value.setText("Value:  -");
+		}
+		else{
+			value.setText("Value: " + x.getValue()  + ".000.000");
+		}
+
+		JLabel ageAttackDefense = new JLabel(
+				"Age: " + x.getAge() + " Attack: " + x.getAttack() + " Defense: " + x.getDefense());
+		ageAttackDefense.setBounds(135, 625, 322, 51);
+		
+		nameNumber.setOpaque(false);
+		team.setOpaque(false);
+		value.setOpaque(false);
+		ageAttackDefense.setOpaque(false);
+
+		nameNumber.setForeground(textColor);
+		team.setForeground(textColor);
+		value.setForeground(textColor);
+		ageAttackDefense.setForeground(textColor);
+
+		nameNumber.setFont(font);
+		team.setFont(font);
+		value.setFont(font);
+		ageAttackDefense.setFont(font);
+
+		nameNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		team.setHorizontalAlignment(SwingConstants.CENTER);
+		value.setHorizontalAlignment(SwingConstants.CENTER);
+		ageAttackDefense.setHorizontalAlignment(SwingConstants.CENTER);
+
+		pane.add(clubLogo);
+		pane.add(nameNumber);
+		pane.add(backButton);
+		pane.add(playerPhoto);
+		pane.add(positions);
+		pane.add(team);
+		pane.add(value);
+		pane.add(ageAttackDefense);
+		pane.add(logoLabel);
+		pane.add(backGround);
+		
+		pane.revalidate();
+		pane.repaint();
+
 	}
 }

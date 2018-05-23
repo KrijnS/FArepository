@@ -218,5 +218,33 @@ public class Competition {
 		}
 		return keeper;
 	}
+	
+	public static String getTeamNamePlayer(Player x) {
+		Competition z = readCompetition();
+		
+		ArrayList<String> team = new ArrayList<>();
+		
+		for(int i = 0; i < z.getTeams().size(); i++) {
+			for( int j = 0; j < z.getTeams().get(i).getPlayers().size(); j++) {
+				if(z.getTeams().get(i).getPlayers().get(j).getName().equals(x.getName())) {
+					team.add(z.getTeams().get(i).getName());
+				}
+			}
+		}
+		return team.get(0);
+	}
+	
+	public static String getTeamNameKeeper(Goalkeeper x) {
+		Competition z = readCompetition();
+		
+		ArrayList<String> team = new ArrayList<>();
+		
+		for(int i = 0; i < z.getTeams().size(); i++) {
+			if(z.getTeams().get(i).getGoalkeepers().get(0).getName().equals(x.getName())) {
+				team.add(z.getTeams().get(i).getName());
+			}
+		}
+		return team.get(0);
+	}
 
 }
