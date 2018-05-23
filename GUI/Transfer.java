@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import InitTeam.Competition;
@@ -109,16 +110,23 @@ public class Transfer {
 					do {
 						// get the username
 						String player = players[i - 1];
-						JButton btn_user = new JButton(player);
-						btn_user.setOpaque(false);
-						btn_user.setFont(font);
-						btn_user.setContentAreaFilled(false);
-						btn_user.setForeground(textColor);
-						btn_user.setBorder(null);
+						//JButton btn_user = new JButton(player);
+						//btn_user.setOpaque(false);
+						//btn_user.setFont(font);
+						//btn_user.setContentAreaFilled(false);
+						//btn_user.setForeground(textColor);
+						//btn_user.setBorder(null);
 						
 						ArrayList<Player> playerList = Competition.playerFromName(player);
 						if(!(playerList.isEmpty())) {
 							Player newPlayer = playerList.get(0);
+							String display = "Ovr: " + newPlayer.getAlg() + "    " + player;
+							JButton btn_user = new JButton(display);
+							btn_user.setOpaque(false);
+							btn_user.setFont(font);
+							btn_user.setContentAreaFilled(false);
+							btn_user.setForeground(textColor);
+							btn_user.setBorder(null);
 							Image img = null;
 							try {
 								URL url = new URL(newPlayer.getPhotoPath());
@@ -134,12 +142,26 @@ public class Transfer {
 							ImageIcon leagueLogo = new ImageIcon(imgNew);
 							JLabel logoMini = new JLabel(leagueLogo);
 							logoMini.setSize(50, 50);
-							btn_user.add(logoMini);
+							btn_user.setIcon(leagueLogo);
+							btn_user.setIconTextGap(50);
+							btn_user.setHorizontalAlignment(SwingConstants.LEFT);
+							
+							btn_user.setPreferredSize(new Dimension(350, 50));
+							container.add(btn_user);
 						}
 
 						ArrayList<Goalkeeper> keeperList = Competition.keeperFromName(player);
 						if(!(keeperList.isEmpty())) {
 							Goalkeeper newKeeper = keeperList.get(0);
+							
+							String display = "Ovr: " + newKeeper.getAlg() + "    " + player;
+							JButton btn_user = new JButton(display);
+							btn_user.setOpaque(false);
+							btn_user.setFont(font);
+							btn_user.setContentAreaFilled(false);
+							btn_user.setForeground(textColor);
+							btn_user.setBorder(null);
+							
 							Image img = null;
 							try {
 								URL url = new URL(newKeeper.getPhotoPath());
@@ -156,6 +178,9 @@ public class Transfer {
 							JLabel logoMini = new JLabel(leagueLogo);
 							logoMini.setSize(50, 50);
 							btn_user.add(logoMini);
+							
+							btn_user.setPreferredSize(new Dimension(350, 50));
+							container.add(btn_user);
 						}
 						//Image img = null;
 						//try {
@@ -174,8 +199,9 @@ public class Transfer {
 						//JLabel logoMini = new JLabel(leagueLogo);
 						//logoMini.setSize(50, 50);
 						//btn_user.add(logoMini);
-						btn_user.setPreferredSize(new Dimension(350, 50));
-						container.add(btn_user);
+						
+						//btn_user.setPreferredSize(new Dimension(350, 50));
+						//container.add(btn_user);
 						i = i - 1;
 
 						// add the actionlistener for the buttons
