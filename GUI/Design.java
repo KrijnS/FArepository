@@ -71,6 +71,12 @@ public class Design {
 	ShowTeam show = new ShowTeam();
 	
 	Transfer trans = new Transfer();
+	
+
+	Font btnFont = new Font("HelveticaNeue", Font.BOLD, 18);
+	Font scoreFont = new Font("HelveticaNeue", Font.BOLD, 24);
+	Color textColor = Color.white;
+
 
 	private JFrame frame;
 
@@ -227,10 +233,6 @@ public class Design {
 
 				frame.getContentPane().removeAll();
 
-				Font btnFont = new Font("Trebuchet MS", Font.BOLD, 18);
-				Font scoreFont = new Font("Trebuchet MS", Font.BOLD, 24);
-				Color textColor = Color.white;
-
 				JLabel firstScenario = new JLabel();
 				firstScenario.setHorizontalAlignment(SwingConstants.CENTER);
 				firstScenario.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -371,7 +373,7 @@ public class Design {
 			}
 
 		});
-		Font btnFont = new Font("Trebuchet MS", Font.PLAIN, 18);
+		Font btnFont = new Font("HelveticaNeue", Font.PLAIN, 18);
 		btn.setFont(btnFont);
 	}
 

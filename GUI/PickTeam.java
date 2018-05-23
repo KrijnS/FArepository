@@ -43,15 +43,15 @@ Formations form = new Formations();
 	List<Team> teams = null;
 	Competition special = new Competition(teams);
 
+	Font font = new Font("HelevticaNeue", Font.PLAIN, 18);
+	Color textColor = Color.white;
+	
 	public void pickAll(Container pane, JLabel backGround, JLabel logoLabel, Design des) {
 		showLeagues(pane, des, logoLabel, backGround);
 	}
 	
 
 	public void showKeeper(Team x, Goalkeeper z, JLabel clubLogo, JLabel backGround, JLabel logoLabel, Container pane, Design des) {
-		Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
-		Color textColor = Color.white;
-		
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(387, 28, 105, 34);
 		Design.buttonDesign(backButton);
@@ -77,9 +77,6 @@ Formations form = new Formations();
 
 		keeper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
-				Color textColor = Color.white;
-
 				pane.removeAll();
 
 				pane.add(clubLogo);
@@ -164,9 +161,7 @@ Formations form = new Formations();
 	}
 	
 	public void showPlayer(Player x, Team z, Container pane, Design des, JLabel logoLabel, JLabel backGround) {
-		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
-		Color textColor = Color.white;
-		
+	
 		Image img = null;
 		try {
 			String getPng = "/Users/Krijn/Downloads/Football App/Club Logo/" + z.getLogoPath();
@@ -487,9 +482,6 @@ Formations form = new Formations();
 		Competition specialTwo = special;
 		
 		showKeeper(x, x.getGoalkeepers().get(0), clubLogo, backGround, logoLabel, pane, des);
-		
-		Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
-		Color textColor = Color.white;
 	
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(387, 28, 105, 34);
