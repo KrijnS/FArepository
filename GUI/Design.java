@@ -14,6 +14,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -187,12 +191,51 @@ public class Design {
 		JButton randomMatch = new JButton("Play Random Match");
 		randomMatch.setBounds(128, 274, 254, 67);
 		buttonDesign(randomMatch);
+		
+		Image buttonImg = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomed.png";
+			File buttonFile = new File(fileName);
+			buttonImg = ImageIO.read(buttonFile);
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		Image buttonSized = buttonImg.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
+		ImageIcon button = new ImageIcon(buttonSized);
+	
+		JLabel buttonToGlory = new JLabel(button);
+		buttonToGlory.setBounds(108, 499, 320, 100);
+		
+		String toGloryMode = new String("To Glory Mode");
+		
+		JLabel buttonMatch = new JLabel(button);
+		buttonMatch.setBounds(108, 375, 320, 100);
+		
+		String playMatch = new String("Play Match");
+		
+		JLabel buttonSelection = new JLabel(button);
+		buttonSelection.setBounds(108, 620, 320, 100);
+		
+		String selectionString = new String("Show Selection");
+		
+		JLabel randomMatchButton = new JLabel(button);
+		randomMatchButton.setBounds(108, 254, 320, 100);
+		
+		String randomM = new String("Random Match");
+		
+		textOnButton(buttonToGlory, toGloryMode, frame.getContentPane());
+		textOnButton(buttonMatch, playMatch, frame.getContentPane());
+		textOnButton(buttonSelection, selectionString, frame.getContentPane());
+		textOnButton(randomMatchButton, randomM, frame.getContentPane());
+		
+		//frame.getContentPane().add(randomMatch);
 
-		frame.getContentPane().add(randomMatch);
-
-		frame.getContentPane().add(match);
-		frame.getContentPane().add(toGlory);
-		frame.getContentPane().add(showSelection);
+		//frame.getContentPane().add(match);
+		//frame.getContentPane().add(toGlory);
+		//frame.getContentPane().add(showSelection);
 		
 		Image logoImg = null;
 		
@@ -345,6 +388,30 @@ public class Design {
 			}
 		});
 		
+		buttonToGlory.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				toGlory.doClick();
+			}
+		});
+		
+		buttonMatch.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				match.doClick();
+			}
+		});
+		
+		buttonSelection.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				showSelection.doClick();
+			}
+		});
+		
+		randomMatchButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				randomMatch.doClick();
+			}
+		});
+
 		frame.getContentPane().revalidate();
 		frame.getContentPane().repaint();
 	}
@@ -377,7 +444,34 @@ public class Design {
 		btn.setFont(btnFont);
 	}
 
+	public void buttonRollover(JLabel btn, ImageIcon buttonImage) {
+		Image buttonImg = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomedPicked.png";
+			File buttonFile = new File(fileName);
+			buttonImg = ImageIO.read(buttonFile);
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		Image buttonSized = buttonImg.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
+		ImageIcon button = new ImageIcon(buttonSized);
+		btn.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				btn.setIcon(button);
+			}
 
+			@Override
+			public void focusLost(FocusEvent e) {
+				btn.setIcon(buttonImage);
+				
+			}
+		});
+
+	}
 
 
 	public void chooseTeam() {
@@ -396,5 +490,17 @@ public class Design {
 		Design des = this;
 		String input = null;
 		trans.transferWindow(backGround, logoLabel, pane, des, input);
+	}
+	
+	public void textOnButton(JLabel button, String input, Container pane) {
+		JLabel toGloryLabel = new JLabel(input);
+		toGloryLabel.setFont(btnFont);
+		toGloryLabel.setForeground(textColor);
+		toGloryLabel.setOpaque(false);
+		toGloryLabel.setBorder(null);
+		toGloryLabel.setBounds((button.getX() + 57), (button.getY() + 22), (button.getWidth()/2), (button.getHeight()/2));
+		
+		pane.add(toGloryLabel);
+		pane.add(button);
 	}
 }
