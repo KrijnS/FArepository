@@ -39,7 +39,7 @@ public class Transfer {
 	String currentPlayer;
 	Competition competition = Competition.readCompetition();
 	
-	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des) {
+	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des, String input) {
 		pane.removeAll();
 		
 		Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
@@ -84,7 +84,7 @@ public class Transfer {
 				des.mainMenu();
 			}
 		});
-
+		
 		lockPlayerName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pane.removeAll();
@@ -107,7 +107,12 @@ public class Transfer {
 					JOptionPane.showMessageDialog(pane,
 							"There were no players found.\nPlease search a different name.", "Error",
 							JOptionPane.WARNING_MESSAGE);
-				} else {
+				} 
+				else if (i > 50) {
+					JOptionPane.showMessageDialog(pane,
+							"There were too many players found.\nPlease refine your search.", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}else {
 					// add buttons for each user with their own name
 					do {
 						// get the username
@@ -158,7 +163,7 @@ public class Transfer {
 
 									Player chosenPlayer = Competition.playerFromName(currentPlayer).get(0);
 
-									showPlayer(chosenPlayer, pane, des, logoLabel, backGround);
+									showPlayer(chosenPlayer, pane, des, logoLabel, backGround, input);
 
 								}
 							});
@@ -207,7 +212,7 @@ public class Transfer {
 
 									Goalkeeper keeper = Competition.keeperFromName(currentPlayer).get(0);
 
-									showKeeper(pane, keeper, des, logoLabel, backGround);
+									showKeeper(pane, keeper, des, logoLabel, backGround, input);
 
 								}
 							});
@@ -246,6 +251,11 @@ public class Transfer {
 			
 		});
 		
+		if(input != null) {
+			playerName.setText(input);
+			lockPlayerName.doClick();
+		}
+		
 		pane.add(lockPlayerName);
 		pane.add(playerName);
 		pane.add(logoLabel);
@@ -256,7 +266,7 @@ public class Transfer {
 		pane.repaint();
 	}
 	
-	public void showKeeper(Container pane, Goalkeeper x, Design des, JLabel logoLabel, JLabel backGround) {
+	public void showKeeper(Container pane, Goalkeeper x, Design des, JLabel logoLabel, JLabel backGround, String input) {
 		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
 		Color textColor = Color.white;
 		
@@ -303,7 +313,7 @@ public class Transfer {
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				transferWindow(backGround, logoLabel, pane, des);
+				transferWindow(backGround, logoLabel, pane, des, input);
 			}
 		});
 
@@ -367,7 +377,7 @@ public class Transfer {
 		pane.repaint();
 	}
 	
-	public void showPlayer(Player x, Container pane, Design des, JLabel logoLabel, JLabel backGround) {
+	public void showPlayer(Player x, Container pane, Design des, JLabel logoLabel, JLabel backGround, String input) {
 		pane.removeAll();
 		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
 		Color textColor = Color.white;
@@ -395,7 +405,7 @@ public class Transfer {
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				transferWindow(backGround, logoLabel, pane, des);
+				transferWindow(backGround, logoLabel, pane, des, input);
 			}
 		});
 

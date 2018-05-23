@@ -392,6 +392,7 @@ public class Design {
 	public void transfer() {
 		Container pane = frame.getContentPane();
 		Design des = this;
-		trans.transferWindow(backGround, logoLabel, pane, des);
+		String input = null;
+		trans.transferWindow(backGround, logoLabel, pane, des, input);
 	}
 }
