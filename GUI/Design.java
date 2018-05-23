@@ -206,22 +206,22 @@ public class Design {
 		Image buttonSized = buttonImg.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
 		ImageIcon button = new ImageIcon(buttonSized);
 	
-		JLabel buttonToGlory = new JLabel(button);
+		JButton buttonToGlory = new JButton(button);
 		buttonToGlory.setBounds(108, 499, 320, 100);
 		
 		String toGloryMode = new String("To Glory Mode");
 		
-		JLabel buttonMatch = new JLabel(button);
+		JButton buttonMatch = new JButton(button);
 		buttonMatch.setBounds(108, 375, 320, 100);
 		
 		String playMatch = new String("Play Match");
 		
-		JLabel buttonSelection = new JLabel(button);
+		JButton buttonSelection = new JButton(button);
 		buttonSelection.setBounds(108, 620, 320, 100);
 		
 		String selectionString = new String("Show Selection");
 		
-		JLabel randomMatchButton = new JLabel(button);
+		JButton randomMatchButton = new JButton(button);
 		randomMatchButton.setBounds(108, 254, 320, 100);
 		
 		String randomM = new String("Random Match");
@@ -230,6 +230,11 @@ public class Design {
 		textOnButton(buttonMatch, playMatch, frame.getContentPane());
 		textOnButton(buttonSelection, selectionString, frame.getContentPane());
 		textOnButton(randomMatchButton, randomM, frame.getContentPane());
+		
+		buttonRollover(buttonToGlory, button);
+		buttonRollover(buttonMatch, button);
+		buttonRollover(buttonSelection, button);
+		buttonRollover(randomMatchButton, button);
 		
 		//frame.getContentPane().add(randomMatch);
 
@@ -444,7 +449,7 @@ public class Design {
 		btn.setFont(btnFont);
 	}
 
-	public void buttonRollover(JLabel btn, ImageIcon buttonImage) {
+	public void buttonRollover(JButton btn, ImageIcon buttonImage) {
 		Image buttonImg = null;
 		
 		try {
@@ -458,17 +463,18 @@ public class Design {
 		
 		Image buttonSized = buttonImg.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
 		ImageIcon button = new ImageIcon(buttonSized);
-		btn.addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				btn.setIcon(button);
-			}
+		btn.setFocusPainted(false);
+		btn.setBorderPainted(false);
+		
+		btn.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	
+		        btn.setIcon(button);
+		    }
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				btn.setIcon(buttonImage);
-				
-			}
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btn.setIcon(buttonImage);
+		    }
 		});
 
 	}
@@ -492,7 +498,10 @@ public class Design {
 		trans.transferWindow(backGround, logoLabel, pane, des, input);
 	}
 	
-	public void textOnButton(JLabel button, String input, Container pane) {
+	public void textOnButton(JButton button, String input, Container pane) {
+		button.setContentAreaFilled(false);
+		button.setBorder(null);
+		
 		JLabel toGloryLabel = new JLabel(input);
 		toGloryLabel.setFont(btnFont);
 		toGloryLabel.setForeground(textColor);
