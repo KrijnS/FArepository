@@ -177,7 +177,11 @@ public class Transfer {
 							ImageIcon leagueLogo = new ImageIcon(imgNew);
 							JLabel logoMini = new JLabel(leagueLogo);
 							logoMini.setSize(50, 50);
+							btn_user.setIcon(leagueLogo);
 							btn_user.add(logoMini);
+							btn_user.setIconTextGap(50);
+							btn_user.setHorizontalAlignment(SwingConstants.LEFT);
+							
 							
 							btn_user.setPreferredSize(new Dimension(350, 50));
 							container.add(btn_user);

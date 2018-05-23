@@ -219,7 +219,7 @@ public class Design {
 		logoLabel.setBounds(107, 45, 312, 159);
 		frame.getContentPane().add(logoLabel);
 		backGround = new JLabel(background);
-		backGround.setBounds(0, 0, 504, 733);
+		backGround.setBounds(0, 0, 504, 740);
 		frame.getContentPane().add(backGround);
 
 		randomMatch.addActionListener(new ActionListener() {

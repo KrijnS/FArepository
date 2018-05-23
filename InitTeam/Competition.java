@@ -182,7 +182,7 @@ public class Competition {
 
 		ArrayList<String> containingPlayers = new ArrayList<>();
 		for (int i = 0; i < allPlayers.size(); i++) {
-			if (allPlayers.get(i).contains(input)) {
+			if (allPlayers.get(i).toLowerCase().contains(input.toLowerCase())) {
 				containingPlayers.add(allPlayers.get(i));
 			}
 		}
@@ -199,7 +199,7 @@ public class Competition {
 		ArrayList<Player> playerName = new ArrayList<>();
 		
 		for (int i = 0; i < player.size(); i++) {
-				if (player.get(i).getName().equalsIgnoreCase(input)) {
+				if (input.equals(player.get(i).getName())) {
 					playerName.add(player.get(i));
 				
 			}
@@ -208,12 +208,12 @@ public class Competition {
 	}
 
 	public static ArrayList<Goalkeeper> keeperFromName(String input) {
-		Competition x = readCompetition();
+		ArrayList<Goalkeeper> allKeepers = readAllKeepers();
 
 		ArrayList<Goalkeeper> keeper = new ArrayList<>();
-		for (int i = 0; i < x.getTeams().size(); i++) {
-			if (x.getTeams().get(i).getGoalkeepers().get(0).getName().equalsIgnoreCase(input)) {
-				keeper.add(x.getTeams().get(i).getGoalkeepers().get(0));
+		for (int i = 0; i < allKeepers.size(); i++) {
+			if (input.equals(allKeepers.get(i).getName())) {
+				keeper.add(allKeepers.get(i));
 			}
 		}
 		return keeper;
