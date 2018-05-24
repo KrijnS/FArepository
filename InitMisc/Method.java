@@ -30,8 +30,8 @@ import Sounds.Goal;
 public class Method {
 	Random rand = new Random();
 	
-	Font btnFont = new Font("HelveticaNeue", Font.BOLD, 18);
-	Font scoreFont = new Font("HelveticaNeue", Font.BOLD, 24);
+	Font btnFont = initFont();
+	Font scoreFont = initFont();
 	Color textColor = Color.white;
 
 
@@ -712,6 +712,21 @@ public class Method {
 		int y = rand.nextInt(x.getTeams().size()) + 0;
 		Team z = x.getTeams().get(y);
 		return z;
+	}
+	
+	public Font initFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 20);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
 	}
 	
 }

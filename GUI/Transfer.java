@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,9 +40,9 @@ public class Transfer {
 	String currentPlayer;
 	Competition competition = Competition.readCompetition();
 	
-	Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
+	Font font = initFont();
 	Color textColor = Color.white;
-	Font searchFont = new Font("Trebuchet MS", Font.ITALIC, 16);
+	Font searchFont = initSearchFont();
 	Color searchColor = Color.GRAY;
 	
 	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des, String input) {
@@ -482,5 +483,35 @@ public class Transfer {
 		pane.revalidate();
 		pane.repaint();
 
+	}
+	
+	public Font initFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.BOLD, 20);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
+	}
+	
+	public Font initSearchFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.ITALIC, 18);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
 	}
 }

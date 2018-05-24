@@ -127,7 +127,7 @@ public class Design {
 			e.printStackTrace();
 		}
 	
-		frame = new JFrame("Football App");
+		frame = new JFrame("SoccerX");
 		frame.setBounds(100, 100, 510, 768);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -234,7 +234,7 @@ public class Design {
 		Image logoImg = null;
 		
 		try {
-			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/footballLogo.png";
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/Header.png";
 			File iconFile = new File(fileName);
 			logoImg = ImageIO.read(iconFile);
 		} catch (IOException e) {
