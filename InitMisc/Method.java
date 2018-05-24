@@ -29,6 +29,11 @@ import Sounds.Goal;
 
 public class Method {
 	Random rand = new Random();
+	
+	Font btnFont = new Font("HelveticaNeue", Font.BOLD, 18);
+	Font scoreFont = new Font("HelveticaNeue", Font.BOLD, 24);
+	Color textColor = Color.white;
+
 
 	public void competitions(List<Team> competitionFaced, Competition competition, int club,
 			List<Team> competitionToFace, List<Team> competitionCompetitors) {
@@ -508,10 +513,7 @@ public class Method {
 	}
 	
 	public void playMatch(JFrame frame, JLabel backGround, JLabel logoLabel) {
-		Font btnFont = new Font("Trebuchet MS", Font.BOLD, 18);
-		Font scoreFont = new Font("Trebuchet MS", Font.BOLD, 24);
-		Color textColor = Color.white;
-
+	
 		int time = 0;
 
 		Competition competition = Competition.readCompetition();

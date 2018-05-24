@@ -39,13 +39,13 @@ public class Transfer {
 	String currentPlayer;
 	Competition competition = Competition.readCompetition();
 	
+	Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
+	Color textColor = Color.white;
+	Font searchFont = new Font("Trebuchet MS", Font.ITALIC, 16);
+	Color searchColor = Color.GRAY;
+	
 	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des, String input) {
 		pane.removeAll();
-		
-		Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
-		Color textColor = Color.white;
-		Font searchFont = new Font("Trebuchet MS", Font.ITALIC, 16);
-		Color searchColor = Color.GRAY;
 		
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(387, 28, 105, 34);
@@ -266,10 +266,7 @@ public class Transfer {
 		pane.repaint();
 	}
 	
-	public void showKeeper(Container pane, Goalkeeper x, Design des, JLabel logoLabel, JLabel backGround, String input) {
-		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
-		Color textColor = Color.white;
-		
+	public void showKeeper(Container pane, Goalkeeper x, Design des, JLabel logoLabel, JLabel backGround, String input) {		
 		String teamName = Competition.getTeamNameKeeper(x);
 		Team z = Competition.getTeamFromName(teamName, competition);
 
@@ -379,8 +376,6 @@ public class Transfer {
 	
 	public void showPlayer(Player x, Container pane, Design des, JLabel logoLabel, JLabel backGround, String input) {
 		pane.removeAll();
-		Font font = new Font("Trebuchet MS", Font.PLAIN, 20);
-		Color textColor = Color.white;
 		
 		String teamName = Competition.getTeamNamePlayer(x);
 		Team z = Competition.getTeamFromName(teamName, competition);
