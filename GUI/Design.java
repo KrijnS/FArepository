@@ -22,6 +22,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -77,10 +78,11 @@ public class Design {
 	Transfer trans = new Transfer();
 	
 
-	Font btnFont = new Font("HelveticaNeue", Font.BOLD, 18);
-	Font scoreFont = new Font("HelveticaNeue", Font.BOLD, 24);
+	//Font btnFont = new Font("Myriad Semibold", Font.PLAIN, 18);
+	Font scoreFont = new Font("Myriad Semibold", Font.PLAIN, 24);
 	Color textColor = Color.white;
-
+	
+	Font btnFont = initFont();
 
 	private JFrame frame;
 
@@ -192,49 +194,36 @@ public class Design {
 		randomMatch.setBounds(128, 274, 254, 67);
 		buttonDesign(randomMatch);
 		
-		Image buttonImg = null;
-		
-		try {
-			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomed.png";
-			File buttonFile = new File(fileName);
-			buttonImg = ImageIO.read(buttonFile);
-		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		}
-		
-		Image buttonSized = buttonImg.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
-		ImageIcon button = new ImageIcon(buttonSized);
 	
-		JButton buttonToGlory = new JButton(button);
+		JButton buttonToGlory = new JButton();
 		buttonToGlory.setBounds(108, 499, 320, 100);
 		
 		String toGloryMode = new String("To Glory Mode");
 		
-		JButton buttonMatch = new JButton(button);
+		JButton buttonMatch = new JButton();
 		buttonMatch.setBounds(108, 375, 320, 100);
 		
 		String playMatch = new String("Play Match");
 		
-		JButton buttonSelection = new JButton(button);
+		JButton buttonSelection = new JButton();
 		buttonSelection.setBounds(108, 620, 320, 100);
 		
 		String selectionString = new String("Show Selection");
 		
-		JButton randomMatchButton = new JButton(button);
+		JButton randomMatchButton = new JButton();
 		randomMatchButton.setBounds(108, 254, 320, 100);
 		
 		String randomM = new String("Random Match");
+		
+		buttonRollover(buttonToGlory, frame.getContentPane());
+		buttonRollover(buttonMatch, frame.getContentPane());
+		buttonRollover(buttonSelection, frame.getContentPane());
+		buttonRollover(randomMatchButton, frame.getContentPane());
 		
 		textOnButton(buttonToGlory, toGloryMode, frame.getContentPane());
 		textOnButton(buttonMatch, playMatch, frame.getContentPane());
 		textOnButton(buttonSelection, selectionString, frame.getContentPane());
 		textOnButton(randomMatchButton, randomM, frame.getContentPane());
-		
-		buttonRollover(buttonToGlory, button);
-		buttonRollover(buttonMatch, button);
-		buttonRollover(buttonSelection, button);
-		buttonRollover(randomMatchButton, button);
 		
 		//frame.getContentPane().add(randomMatch);
 
@@ -445,38 +434,54 @@ public class Design {
 			}
 
 		});
-		Font btnFont = new Font("HelveticaNeue", Font.PLAIN, 18);
+		Font btnFont = new Font("Myriad Semibold", Font.PLAIN, 18);
 		btn.setFont(btnFont);
 	}
 
-	public void buttonRollover(JButton btn, ImageIcon buttonImage) {
-		Image buttonImg = null;
+	public void buttonRollover(JButton btn, Container pane) {
+		Image buttonImg1 = null;
 		
 		try {
-			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomedPicked.png";
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomed.png";
 			File buttonFile = new File(fileName);
-			buttonImg = ImageIO.read(buttonFile);
+			buttonImg1 = ImageIO.read(buttonFile);
 		} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
 		
-		Image buttonSized = buttonImg.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
+		Image buttonSized = buttonImg1.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
 		ImageIcon button = new ImageIcon(buttonSized);
+		
+		btn.setIcon(button);
+		
+		Image buttonImg2 = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomedPicked.png";
+			File buttonFile = new File(fileName);
+			buttonImg2 = ImageIO.read(buttonFile);
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		Image buttonSized2 = buttonImg2.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
+		ImageIcon button2 = new ImageIcon(buttonSized2);
 		btn.setFocusPainted(false);
 		btn.setBorderPainted(false);
 		
 		btn.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	
-		        btn.setIcon(button);
+		        btn.setIcon(button2);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		        btn.setIcon(buttonImage);
+		        btn.setIcon(button);
 		    }
 		});
-
+		
 	}
 
 
@@ -511,5 +516,20 @@ public class Design {
 		
 		pane.add(toGloryLabel);
 		pane.add(button);
+	}
+	
+	public Font initFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.BOLD, 20);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
 	}
 }
