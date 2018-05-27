@@ -315,7 +315,7 @@ public class Transfer {
 			}
 		});
 
-		JLabel nameNumber = new JLabel("#" + x.getNumber() + " " + z.getName());
+		JLabel nameNumber = new JLabel("#" + x.getNumber() + " " + x.getName());
 		nameNumber.setBounds(135, 285, 322, 51);
 
 		JLabel positions = new JLabel("Positions: " + x.getPosition());
@@ -325,7 +325,7 @@ public class Transfer {
 		positions.setFont(font);
 		positions.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel team = new JLabel(x.getName());
+		JLabel team = new JLabel(z.getName());
 		team.setBounds(135, 445, 322, 51);
 
 		JLabel value = new JLabel();
