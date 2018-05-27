@@ -247,4 +247,51 @@ public class Competition {
 		return team.get(0);
 	}
 
+	public static String[] playerFilter(int minAlg, int maxAlg, int minAtt, int maxAtt, int minDef, int maxDef, int minAge, int maxAge, int minVal, int maxVal, String pos) {
+		ArrayList<Player> allPlayers = readAllPlayers();
+		
+		ArrayList<Player> playersFiltered = new ArrayList<>();
+		
+		for(int i = 0; i < allPlayers.size(); i++) {
+			if(allPlayers.get(i).getAlg() > minAlg && allPlayers.get(i).getAlg() < maxAlg) {
+				playersFiltered.add(allPlayers.get(i));
+			}
+		}
+			
+		for(int i = 0; i < playersFiltered.size(); i++) {
+			if(playersFiltered.get(i).getAttack() < minAtt || playersFiltered.get(i).getAttack() > maxAtt) {
+				playersFiltered.remove(i);
+			}
+		}
+		
+		for(int i = 0; i < playersFiltered.size(); i++) {
+			if(playersFiltered.get(i).getDefense() < minDef || playersFiltered.get(i).getDefense() > maxDef) {
+				playersFiltered.remove(i);
+			}
+		}
+		
+		for(int i = 0; i < playersFiltered.size(); i++) {
+			if(playersFiltered.get(i).getAge() < minAge || playersFiltered.get(i).getAge() > maxAge) {
+				playersFiltered.remove(i);
+			}
+		}
+		
+		for(int i = 0; i < playersFiltered.size(); i++) {
+			if(playersFiltered.get(i).getValue() < minVal || playersFiltered.get(i).getValue() > maxVal) {
+				playersFiltered.remove(i);
+			}
+		}
+		
+		for(int i = 0; i < playersFiltered.size(); i++) {
+			if(!(playersFiltered.get(i).getPosition().contains(pos))) {
+				playersFiltered.remove(i);
+			}
+		}
+		
+		String[] playerList = new String[playersFiltered.size()];
+		for (int i = 0; i < playersFiltered.size(); i++) {
+			playerList[i] = playersFiltered.get(i).getName();
+		}
+		return playerList;
+	}
 }
