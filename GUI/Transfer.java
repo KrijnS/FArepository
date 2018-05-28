@@ -29,6 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import InitTeam.Competition;
 import InitTeam.Goalkeeper;
@@ -99,12 +101,12 @@ public class Transfer {
 		String inMaxAge = maxAge.getText();
 		searchTextfield(maxAge, inMaxAge, pane);
 		
-		JTextField minVal = new JTextField("Minimum Value: 10000");
+		JTextField minVal = new JTextField("Minimum Value: 100000");
 		minVal.setBounds(40, 620, 180, 35);
 		String inMinVal = minVal.getText();
 		searchTextfield(minVal, inMinVal, pane);
 		
-		JTextField maxVal = new JTextField("Maximum Value: 150000000");
+		JTextField maxVal = new JTextField("Maximum Value: 15000000");
 		maxVal.setBounds(270, 620, 210, 35);
 		String inMaxVal = maxVal.getText();
 		searchTextfield(maxVal, inMaxVal, pane);
@@ -114,6 +116,83 @@ public class Transfer {
 		String inPos = position.getText();
 		searchTextfield(position, inPos, pane);
 		position.setHorizontalAlignment(JTextField.CENTER);
+		
+		position.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+
+				if (position.getText().equals("DM")) {
+					minDef.setText("-");
+					minDef.setEditable(false);
+					maxDef.setText("-");
+					maxDef.setEditable(false);
+					minAtt.setEditable(false);
+					minAtt.setText("-");
+					maxAtt.setEditable(false);
+					maxAtt.setText("-");
+				}
+				
+				if (!(position.getText().equals("DM"))) {
+					minDef.setText("Minimum Defense: 1");
+					minDef.setEditable(true);
+					maxDef.setText("Maximum Defense: 99");
+					maxDef.setEditable(true);
+					minAtt.setEditable(true);
+					minAtt.setText("Minimum Attack: 1");
+					maxAtt.setEditable(true);
+					maxAtt.setText("Maximum Attack: 99");
+				}
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+
+				if (position.getText().equals("DM")) {
+					minDef.setText("-");
+					minDef.setEditable(false);
+					maxDef.setText("-");
+					maxDef.setEditable(false);
+					minAtt.setEditable(false);
+					minAtt.setText("-");
+					maxAtt.setEditable(false);
+					maxAtt.setText("-");
+				}
+				
+				if (!(position.getText().equals("DM"))) {
+					minDef.setText("Minimum Defense: 1");
+					minDef.setEditable(true);
+					maxDef.setText("Maximum Defense: 99");
+					maxDef.setEditable(true);
+					minAtt.setEditable(true);
+					minAtt.setText("Minimum Attack: 1");
+					maxAtt.setEditable(true);
+					maxAtt.setText("Maximum Attack: 99");
+				}
+			}
+
+			public void insertUpdate(DocumentEvent e) {
+
+				if (position.getText().equals("DM")) {
+					minDef.setText("-");
+					minDef.setEditable(false);
+					maxDef.setText("-");
+					maxDef.setEditable(false);
+					minAtt.setEditable(false);
+					minAtt.setText("-");
+					maxAtt.setEditable(false);
+					maxAtt.setText("-");
+				}
+				
+				if (!(position.getText().equals("DM"))) {
+					minDef.setText("Minimum Defense: 1");
+					minDef.setEditable(true);
+					maxDef.setText("Maximum Defense: 99");
+					maxDef.setEditable(true);
+					minAtt.setEditable(true);
+					minAtt.setText("Minimum Attack: 1");
+					maxAtt.setEditable(true);
+					maxAtt.setText("Maximum Attack: 99");
+				}
+			}
+		});
 		
 		JButton lockPlayerName = new JButton("Search");
 		lockPlayerName.setBounds(390, 310, 100, 32);
@@ -130,55 +209,55 @@ public class Transfer {
 			public void actionPerformed(ActionEvent e) {
 				pane.removeAll();
 							
-				int minAlgInt = 1;
+				int minAlgInt = 0;
 				
 				if(!(inMinAlg.equals(minAlg.getText()))) {
 					minAlgInt = Integer.parseInt(minAlg.getText());
 				}
 				
-				int maxAlgInt = 99;
+				int maxAlgInt = 100;
 				
 				if(!(inMaxAlg.equals(maxAlg.getText()))) {
 					maxAlgInt = Integer.parseInt(maxAlg.getText());
 				}
 				
-				int minAttInt = 1;
+				int minAttInt = 0;
 				
 				if(!(inMinAtt.equals(minAtt.getText()))) {
 					minAttInt = Integer.parseInt(minAtt.getText());
 				}
 				
-				int maxAttInt = 99;
+				int maxAttInt = 100;
 				
 				if(!(inMaxAtt.equals(maxAtt.getText()))) {
 					maxAttInt = Integer.parseInt(maxAtt.getText());
 				}	
 				
-				int minDefInt = 1;
+				int minDefInt = 0;
 				
 				if(!(inMinDef.equals(minDef.getText()))) {
 					minDefInt = Integer.parseInt(minDef.getText());
 				}
 				
-				int maxDefInt = 99;
+				int maxDefInt = 100;
 				
 				if(!(inMaxDef.equals(maxDef.getText()))) {
 					maxDefInt = Integer.parseInt(maxDef.getText());
 				}
 			
-				int minAgeInt = 1;
+				int minAgeInt = 0;
 				
 				if(!(inMinAge.equals(minAge.getText()))) {
 					minAgeInt = Integer.parseInt(minAge.getText());
 				}
 				
-				int maxAgeInt = 99;
+				int maxAgeInt = 100;
 				
 				if(!(inMaxAge.equals(maxAge.getText()))) {
 					maxAgeInt = Integer.parseInt(maxAge.getText());
 				}
 
-				int minValInt = 1;
+				int minValInt = 0;
 				
 				if(!(inMinVal.equals(minVal.getText()))) {
 					minValInt = Integer.parseInt(minVal.getText());
@@ -206,19 +285,6 @@ public class Transfer {
 				container.setOpaque(false);
 				GridLayout gl = new GridLayout(0, 1, 10, 30);
 				container.setLayout(gl);
-				
-				System.out.println(minAlgInt);
-				System.out.println(maxAlgInt);
-				System.out.println(minAttInt);
-				System.out.println(maxAttInt);
-				System.out.println(minDefInt);
-				System.out.println(maxDefInt);
-				System.out.println(minAgeInt);
-				System.out.println(maxAgeInt);
-				System.out.println(minValInt);
-				System.out.println(maxValInt);
-				System.out.println(pos + "e");
-				System.out.println(name + "n");
 				
 				// get the users from the user file
 				String[] players = Competition.playerFilter(minAlgInt, maxAlgInt, minAttInt, maxAttInt, minDefInt, maxDefInt, minAgeInt, maxAgeInt, minValInt, maxValInt, pos, name);
