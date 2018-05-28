@@ -43,7 +43,7 @@ public class Transfer {
 	Font font = initFont();
 	Color textColor = Color.white;
 	Font searchFont = initSearchFont();
-	Color searchColor = Color.GRAY;
+	Color searchColor = Color.lightGray;
 	
 	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des, String input) {
 		pane.removeAll();
@@ -52,32 +52,72 @@ public class Transfer {
 		backButton.setBounds(387, 28, 105, 34);
 		Design.buttonDesign(backButton);
 		
+
 		JTextField playerName = new JTextField("Insert player name");
 		playerName.setBounds(40, 310, 350, 35);
+		String inName = playerName.getText();
+		searchTextfield(playerName, inName, pane);
 		playerName.setHorizontalAlignment(JTextField.CENTER);
-		playerName.setOpaque(false);
-		playerName.setBorder(null);
-		playerName.setFont(searchFont);
-		playerName.setForeground(searchColor);
+		
+		JTextField minAlg = new JTextField("Minimum Overall: 1");
+		minAlg.setBounds(40, 380, 170, 35);
+		String inMinAlg = minAlg.getText();
+		searchTextfield(minAlg, inMinAlg, pane);
+		
+		JTextField maxAlg = new JTextField("Maximum Overall: 99");
+		maxAlg.setBounds(270, 380, 170, 35);
+		String inMaxAlg = maxAlg.getText();
+		searchTextfield(maxAlg, inMaxAlg, pane);
+		
+		JTextField minAtt = new JTextField("Minimum Attack: 1");
+		minAtt.setBounds(40, 440, 170, 35);
+		String inMinAtt = minAtt.getText();
+		searchTextfield(minAtt, inMinAtt, pane);
+		
+		JTextField maxAtt = new JTextField("Maximum Attack: 99");
+		maxAtt.setBounds(270, 440, 170, 35);
+		String inMaxAtt = maxAtt.getText();
+		searchTextfield(maxAtt, inMaxAtt, pane);
+		
+		JTextField minDef = new JTextField("Minimum Defense: 1");
+		minDef.setBounds(40, 500, 170, 35);
+		String inMinDef = minDef.getText();
+		searchTextfield(minDef, inMinDef, pane);
+		
+		JTextField maxDef = new JTextField("Maximum Defense: 99");
+		maxDef.setBounds(270, 500, 170, 35);
+		String inMaxDef = maxDef.getText();
+		searchTextfield(maxDef, inMaxDef, pane);
+		
+		JTextField minAge = new JTextField("Minimum Age: 15");
+		minAge.setBounds(40, 560, 170, 35);
+		String inMinAge = minAge.getText();
+		searchTextfield(minAge, inMinAge, pane);
+		
+		JTextField maxAge = new JTextField("Maximum Age: 99");
+		maxAge.setBounds(270, 560, 170, 35);
+		String inMaxAge = maxAge.getText();
+		searchTextfield(maxAge, inMaxAge, pane);
+		
+		JTextField minVal = new JTextField("Minimum Value: 10000");
+		minVal.setBounds(40, 620, 180, 35);
+		String inMinVal = minVal.getText();
+		searchTextfield(minVal, inMinVal, pane);
+		
+		JTextField maxVal = new JTextField("Maximum Value: 150000000");
+		maxVal.setBounds(270, 620, 210, 35);
+		String inMaxVal = maxVal.getText();
+		searchTextfield(maxVal, inMaxVal, pane);
+		
+		JTextField position = new JTextField("Position: ");
+		position.setBounds(40, 670, 400, 35);
+		String inPos = position.getText();
+		searchTextfield(position, inPos, pane);
+		position.setHorizontalAlignment(JTextField.CENTER);
 		
 		JButton lockPlayerName = new JButton("Search");
 		lockPlayerName.setBounds(390, 310, 100, 32);
 		Design.buttonDesign(lockPlayerName);
-		
-		playerName.addFocusListener(new FocusListener() {
-		public void focusGained(FocusEvent e) {
-	        if (playerName.getText().equals("Insert player name")) {
-	        	playerName.setText("");
-	        	playerName.setForeground(Color.BLACK);
-	        }
-	    }
-	    public void focusLost(FocusEvent e) {
-	        if (playerName.getText().isEmpty()) {
-	        	playerName.setForeground(Color.GRAY);
-	        	playerName.setText("Insert player name");
-	        }
-	    }
-	    });		
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,15 +129,99 @@ public class Transfer {
 		lockPlayerName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pane.removeAll();
-				String input = playerName.getText();
+							
+				int minAlgInt = 1;
+				
+				if(!(inMinAlg.equals(minAlg.getText()))) {
+					minAlgInt = Integer.parseInt(minAlg.getText());
+				}
+				
+				int maxAlgInt = 99;
+				
+				if(!(inMaxAlg.equals(maxAlg.getText()))) {
+					maxAlgInt = Integer.parseInt(maxAlg.getText());
+				}
+				
+				int minAttInt = 1;
+				
+				if(!(inMinAtt.equals(minAtt.getText()))) {
+					minAttInt = Integer.parseInt(minAtt.getText());
+				}
+				
+				int maxAttInt = 99;
+				
+				if(!(inMaxAtt.equals(maxAtt.getText()))) {
+					maxAttInt = Integer.parseInt(maxAtt.getText());
+				}	
+				
+				int minDefInt = 1;
+				
+				if(!(inMinDef.equals(minDef.getText()))) {
+					minDefInt = Integer.parseInt(minDef.getText());
+				}
+				
+				int maxDefInt = 99;
+				
+				if(!(inMaxDef.equals(maxDef.getText()))) {
+					maxDefInt = Integer.parseInt(maxDef.getText());
+				}
+			
+				int minAgeInt = 1;
+				
+				if(!(inMinAge.equals(minAge.getText()))) {
+					minAgeInt = Integer.parseInt(minAge.getText());
+				}
+				
+				int maxAgeInt = 99;
+				
+				if(!(inMaxAge.equals(maxAge.getText()))) {
+					maxAgeInt = Integer.parseInt(maxAge.getText());
+				}
+
+				int minValInt = 1;
+				
+				if(!(inMinVal.equals(minVal.getText()))) {
+					minValInt = Integer.parseInt(minVal.getText());
+				}
+				
+				int maxValInt = 1000000000;
+				
+				if(!(inMaxVal.equals(maxVal.getText()))) {
+					maxValInt = Integer.parseInt(maxVal.getText());
+				}
+
+				String pos = "";
+				
+				if(!(inPos.equals(position.getText()))) {
+					pos = position.getText();
+				}
+				
+				String name = "";
+				
+				if(!(inName.equals(playerName.getText()))) {
+					name = playerName.getText();
+				}
 				
 				JPanel container = new JPanel();
 				container.setOpaque(false);
 				GridLayout gl = new GridLayout(0, 1, 10, 30);
 				container.setLayout(gl);
 				
+				System.out.println(minAlgInt);
+				System.out.println(maxAlgInt);
+				System.out.println(minAttInt);
+				System.out.println(maxAttInt);
+				System.out.println(minDefInt);
+				System.out.println(maxDefInt);
+				System.out.println(minAgeInt);
+				System.out.println(maxAgeInt);
+				System.out.println(minValInt);
+				System.out.println(maxValInt);
+				System.out.println(pos + "e");
+				System.out.println(name + "n");
+				
 				// get the users from the user file
-				String[] players = Competition.playersContaining(input);
+				String[] players = Competition.playerFilter(minAlgInt, maxAlgInt, minAttInt, maxAttInt, minDefInt, maxDefInt, minAgeInt, maxAgeInt, minValInt, maxValInt, pos, name);
 				Arrays.sort(players, Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
 
 				// get the amount of users
@@ -513,5 +637,30 @@ public class Transfer {
 			e.printStackTrace();
 		}
 		return fonts.get(0);
+	}
+	
+	public void searchTextfield(JTextField x, String input, Container pane) {
+		x.setHorizontalAlignment(JTextField.LEFT);
+		x.setOpaque(false);
+		x.setBorder(null);
+		x.setFont(searchFont);
+		x.setForeground(searchColor);
+		
+		x.addFocusListener(new FocusListener() {
+		public void focusGained(FocusEvent e) {
+	        if (x.getText().equals(input)) {
+	        	x.setText("");
+	        	x.setForeground(Color.BLACK);
+	        }
+	    }
+	    public void focusLost(FocusEvent e) {
+	        if (x.getText().isEmpty()) {
+	        	x.setForeground(Color.DARK_GRAY);
+	        	x.setText(input);
+	        }
+	    }
+	    });		
+		
+		pane.add(x);
 	}
 }
