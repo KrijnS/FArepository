@@ -143,7 +143,7 @@ public class Player {
 			calc++;
 		}
 		
-		if(x.getAge() > 37) {
+		if(x.getAge() > 38) {
 			z = z * 0.01;
 		}
 		
@@ -179,7 +179,7 @@ public class Player {
 			z = z * 1.5;
 		}
 		
-		if(x.getAge() > 34 && x.getAge() < 37) {
+		if(x.getAge() > 34 && x.getAge() < 38) {
 			z = z * 0.33;
 		}
 		

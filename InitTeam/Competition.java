@@ -247,4 +247,48 @@ public class Competition {
 		return team.get(0);
 	}
 
+
+public static String[] playerFilter(int minAlg, int maxAlg, int minAtt, int maxAtt, int minDef, int maxDef, int minAge, int maxAge, int minVal, int maxVal, String pos, String name) {
+		ArrayList<Player> allPlayers = readAllPlayers();
+		ArrayList<Goalkeeper> allKeepers = readAllKeepers();
+		
+		ArrayList<Player> playersFiltered = new ArrayList<>();
+		ArrayList<Goalkeeper> keepersFiltered = new ArrayList<>();
+
+		for (int i = 0; i < allPlayers.size(); i++) {
+			if (allPlayers.get(i).getAlg() >= minAlg && allPlayers.get(i).getAlg() <= maxAlg
+					&& allPlayers.get(i).getAttack() >= minAtt && allPlayers.get(i).getAttack() <= maxAtt
+					&& allPlayers.get(i).getDefense() >= minDef && allPlayers.get(i).getDefense() <= maxDef
+					&& allPlayers.get(i).getAge() >= minAge && allPlayers.get(i).getAge() <= maxAge
+					&& (allPlayers.get(i).getValue() >= minVal
+					|| allPlayers.get(i).getValue() == 0) && (allPlayers.get(i).getValue() <= maxVal
+					|| allPlayers.get(i).getValue() == 0) && allPlayers.get(i).getPosition().contains(pos)
+							&& allPlayers.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
+				playersFiltered.add(allPlayers.get(i));
+			}
+		}
+
+		if(minAtt == 0 && maxAtt == 100 && minDef == 0 && maxDef == 100) {
+			for (int i = 0; i < allKeepers.size(); i++) {
+				if (allKeepers.get(i).getAlg() > minAlg && allKeepers.get(i).getAlg() < maxAlg
+						&& allKeepers.get(i).getAge() > minAge && allKeepers.get(i).getAge() < maxAge
+						&& allKeepers.get(i).getValue() > minVal && allKeepers.get(i).getValue() < maxVal
+						&& allKeepers.get(i).getPosition().contains(pos)
+						&& allKeepers.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
+					keepersFiltered.add(allKeepers.get(i));
+				}
+			}
+		}
+		
+		String[] playerList = new String[playersFiltered.size() + keepersFiltered.size()];
+		for (int i = 0; i < playersFiltered.size(); i++) {
+			playerList[i] = playersFiltered.get(i).getName();
+		}
+	
+		for(int i = 0; i < keepersFiltered.size(); i++) {
+			playerList[i + playersFiltered.size()] = keepersFiltered.get(i).getName();
+		}
+		return playerList;
+	}
+
 }

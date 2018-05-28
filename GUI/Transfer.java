@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,6 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import InitTeam.Competition;
 import InitTeam.Goalkeeper;
@@ -39,10 +42,10 @@ public class Transfer {
 	String currentPlayer;
 	Competition competition = Competition.readCompetition();
 	
-	Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
+	Font font = initFont();
 	Color textColor = Color.white;
-	Font searchFont = new Font("Trebuchet MS", Font.ITALIC, 16);
-	Color searchColor = Color.GRAY;
+	Font searchFont = initSearchFont();
+	Color searchColor = Color.lightGray;
 	
 	public void transferWindow(JLabel backGround, JLabel logoLabel, Container pane, Design des, String input) {
 		pane.removeAll();
@@ -51,32 +54,149 @@ public class Transfer {
 		backButton.setBounds(387, 28, 105, 34);
 		Design.buttonDesign(backButton);
 		
+
 		JTextField playerName = new JTextField("Insert player name");
 		playerName.setBounds(40, 310, 350, 35);
+		String inName = playerName.getText();
+		searchTextfield(playerName, inName, pane);
 		playerName.setHorizontalAlignment(JTextField.CENTER);
-		playerName.setOpaque(false);
-		playerName.setBorder(null);
-		playerName.setFont(searchFont);
-		playerName.setForeground(searchColor);
+		
+		JTextField minAlg = new JTextField("Minimum Overall: 1");
+		minAlg.setBounds(40, 380, 170, 35);
+		String inMinAlg = minAlg.getText();
+		searchTextfield(minAlg, inMinAlg, pane);
+		
+		JTextField maxAlg = new JTextField("Maximum Overall: 99");
+		maxAlg.setBounds(270, 380, 170, 35);
+		String inMaxAlg = maxAlg.getText();
+		searchTextfield(maxAlg, inMaxAlg, pane);
+		
+		JTextField minAtt = new JTextField("Minimum Attack: 1");
+		minAtt.setBounds(40, 440, 170, 35);
+		String inMinAtt = minAtt.getText();
+		searchTextfield(minAtt, inMinAtt, pane);
+		
+		JTextField maxAtt = new JTextField("Maximum Attack: 99");
+		maxAtt.setBounds(270, 440, 170, 35);
+		String inMaxAtt = maxAtt.getText();
+		searchTextfield(maxAtt, inMaxAtt, pane);
+		
+		JTextField minDef = new JTextField("Minimum Defense: 1");
+		minDef.setBounds(40, 500, 170, 35);
+		String inMinDef = minDef.getText();
+		searchTextfield(minDef, inMinDef, pane);
+		
+		JTextField maxDef = new JTextField("Maximum Defense: 99");
+		maxDef.setBounds(270, 500, 170, 35);
+		String inMaxDef = maxDef.getText();
+		searchTextfield(maxDef, inMaxDef, pane);
+		
+		JTextField minAge = new JTextField("Minimum Age: 15");
+		minAge.setBounds(40, 560, 170, 35);
+		String inMinAge = minAge.getText();
+		searchTextfield(minAge, inMinAge, pane);
+		
+		JTextField maxAge = new JTextField("Maximum Age: 99");
+		maxAge.setBounds(270, 560, 170, 35);
+		String inMaxAge = maxAge.getText();
+		searchTextfield(maxAge, inMaxAge, pane);
+		
+		JTextField minVal = new JTextField("Minimum Value: 100000");
+		minVal.setBounds(40, 620, 180, 35);
+		String inMinVal = minVal.getText();
+		searchTextfield(minVal, inMinVal, pane);
+		
+		JTextField maxVal = new JTextField("Maximum Value: 15000000");
+		maxVal.setBounds(270, 620, 210, 35);
+		String inMaxVal = maxVal.getText();
+		searchTextfield(maxVal, inMaxVal, pane);
+		
+		JTextField position = new JTextField("Position: ");
+		position.setBounds(40, 670, 400, 35);
+		String inPos = position.getText();
+		searchTextfield(position, inPos, pane);
+		position.setHorizontalAlignment(JTextField.CENTER);
+		
+		position.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+
+				if (position.getText().equals("DM")) {
+					minDef.setText("-");
+					minDef.setEditable(false);
+					maxDef.setText("-");
+					maxDef.setEditable(false);
+					minAtt.setEditable(false);
+					minAtt.setText("-");
+					maxAtt.setEditable(false);
+					maxAtt.setText("-");
+				}
+				
+				if (!(position.getText().equals("DM"))) {
+					minDef.setText("Minimum Defense: 1");
+					minDef.setEditable(true);
+					maxDef.setText("Maximum Defense: 99");
+					maxDef.setEditable(true);
+					minAtt.setEditable(true);
+					minAtt.setText("Minimum Attack: 1");
+					maxAtt.setEditable(true);
+					maxAtt.setText("Maximum Attack: 99");
+				}
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+
+				if (position.getText().equals("DM")) {
+					minDef.setText("-");
+					minDef.setEditable(false);
+					maxDef.setText("-");
+					maxDef.setEditable(false);
+					minAtt.setEditable(false);
+					minAtt.setText("-");
+					maxAtt.setEditable(false);
+					maxAtt.setText("-");
+				}
+				
+				if (!(position.getText().equals("DM"))) {
+					minDef.setText("Minimum Defense: 1");
+					minDef.setEditable(true);
+					maxDef.setText("Maximum Defense: 99");
+					maxDef.setEditable(true);
+					minAtt.setEditable(true);
+					minAtt.setText("Minimum Attack: 1");
+					maxAtt.setEditable(true);
+					maxAtt.setText("Maximum Attack: 99");
+				}
+			}
+
+			public void insertUpdate(DocumentEvent e) {
+
+				if (position.getText().equals("DM")) {
+					minDef.setText("-");
+					minDef.setEditable(false);
+					maxDef.setText("-");
+					maxDef.setEditable(false);
+					minAtt.setEditable(false);
+					minAtt.setText("-");
+					maxAtt.setEditable(false);
+					maxAtt.setText("-");
+				}
+				
+				if (!(position.getText().equals("DM"))) {
+					minDef.setText("Minimum Defense: 1");
+					minDef.setEditable(true);
+					maxDef.setText("Maximum Defense: 99");
+					maxDef.setEditable(true);
+					minAtt.setEditable(true);
+					minAtt.setText("Minimum Attack: 1");
+					maxAtt.setEditable(true);
+					maxAtt.setText("Maximum Attack: 99");
+				}
+			}
+		});
 		
 		JButton lockPlayerName = new JButton("Search");
 		lockPlayerName.setBounds(390, 310, 100, 32);
 		Design.buttonDesign(lockPlayerName);
-		
-		playerName.addFocusListener(new FocusListener() {
-		public void focusGained(FocusEvent e) {
-	        if (playerName.getText().equals("Insert player name")) {
-	        	playerName.setText("");
-	        	playerName.setForeground(Color.BLACK);
-	        }
-	    }
-	    public void focusLost(FocusEvent e) {
-	        if (playerName.getText().isEmpty()) {
-	        	playerName.setForeground(Color.GRAY);
-	        	playerName.setText("Insert player name");
-	        }
-	    }
-	    });		
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,7 +208,78 @@ public class Transfer {
 		lockPlayerName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pane.removeAll();
-				String input = playerName.getText();
+							
+				int minAlgInt = 0;
+				
+				if(!(inMinAlg.equals(minAlg.getText()))) {
+					minAlgInt = Integer.parseInt(minAlg.getText());
+				}
+				
+				int maxAlgInt = 100;
+				
+				if(!(inMaxAlg.equals(maxAlg.getText()))) {
+					maxAlgInt = Integer.parseInt(maxAlg.getText());
+				}
+				
+				int minAttInt = 0;
+				
+				if(!(inMinAtt.equals(minAtt.getText()))) {
+					minAttInt = Integer.parseInt(minAtt.getText());
+				}
+				
+				int maxAttInt = 100;
+				
+				if(!(inMaxAtt.equals(maxAtt.getText()))) {
+					maxAttInt = Integer.parseInt(maxAtt.getText());
+				}	
+				
+				int minDefInt = 0;
+				
+				if(!(inMinDef.equals(minDef.getText()))) {
+					minDefInt = Integer.parseInt(minDef.getText());
+				}
+				
+				int maxDefInt = 100;
+				
+				if(!(inMaxDef.equals(maxDef.getText()))) {
+					maxDefInt = Integer.parseInt(maxDef.getText());
+				}
+			
+				int minAgeInt = 0;
+				
+				if(!(inMinAge.equals(minAge.getText()))) {
+					minAgeInt = Integer.parseInt(minAge.getText());
+				}
+				
+				int maxAgeInt = 100;
+				
+				if(!(inMaxAge.equals(maxAge.getText()))) {
+					maxAgeInt = Integer.parseInt(maxAge.getText());
+				}
+
+				int minValInt = 0;
+				
+				if(!(inMinVal.equals(minVal.getText()))) {
+					minValInt = Integer.parseInt(minVal.getText());
+				}
+				
+				int maxValInt = 1000000000;
+				
+				if(!(inMaxVal.equals(maxVal.getText()))) {
+					maxValInt = Integer.parseInt(maxVal.getText());
+				}
+
+				String pos = "";
+				
+				if(!(inPos.equals(position.getText()))) {
+					pos = position.getText();
+				}
+				
+				String name = "";
+				
+				if(!(inName.equals(playerName.getText()))) {
+					name = playerName.getText();
+				}
 				
 				JPanel container = new JPanel();
 				container.setOpaque(false);
@@ -96,7 +287,7 @@ public class Transfer {
 				container.setLayout(gl);
 				
 				// get the users from the user file
-				String[] players = Competition.playersContaining(input);
+				String[] players = Competition.playerFilter(minAlgInt, maxAlgInt, minAttInt, maxAttInt, minDefInt, maxDefInt, minAgeInt, maxAgeInt, minValInt, maxValInt, pos, name);
 				Arrays.sort(players, Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
 
 				// get the amount of users
@@ -314,7 +505,7 @@ public class Transfer {
 			}
 		});
 
-		JLabel nameNumber = new JLabel("#" + x.getNumber() + " " + z.getName());
+		JLabel nameNumber = new JLabel("#" + x.getNumber() + " " + x.getName());
 		nameNumber.setBounds(135, 285, 322, 51);
 
 		JLabel positions = new JLabel("Positions: " + x.getPosition());
@@ -324,7 +515,7 @@ public class Transfer {
 		positions.setFont(font);
 		positions.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel team = new JLabel(x.getName());
+		JLabel team = new JLabel(z.getName());
 		team.setBounds(135, 445, 322, 51);
 
 		JLabel value = new JLabel();
@@ -482,5 +673,60 @@ public class Transfer {
 		pane.revalidate();
 		pane.repaint();
 
+	}
+	
+	public Font initFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.BOLD, 20);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
+	}
+	
+	public Font initSearchFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.ITALIC, 18);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
+	}
+	
+	public void searchTextfield(JTextField x, String input, Container pane) {
+		x.setHorizontalAlignment(JTextField.LEFT);
+		x.setOpaque(false);
+		x.setBorder(null);
+		x.setFont(searchFont);
+		x.setForeground(searchColor);
+		
+		x.addFocusListener(new FocusListener() {
+		public void focusGained(FocusEvent e) {
+	        if (x.getText().equals(input)) {
+	        	x.setText("");
+	        	x.setForeground(Color.BLACK);
+	        }
+	    }
+	    public void focusLost(FocusEvent e) {
+	        if (x.getText().isEmpty()) {
+	        	x.setForeground(Color.DARK_GRAY);
+	        	x.setText(input);
+	        }
+	    }
+	    });		
+		
+		pane.add(x);
 	}
 }

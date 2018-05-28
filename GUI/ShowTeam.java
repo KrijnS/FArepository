@@ -7,9 +7,11 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +35,7 @@ import InitTeam.Team;
 
 public class ShowTeam {
 	
-Formations form = new Formations();
+	Formations form = new Formations();
 	
 	Method init = new Method();
 	
@@ -43,7 +45,7 @@ Formations form = new Formations();
 	List<Team> teams = null;
 	Competition special = new Competition(teams);
 	
-	Font font = new Font("Trebuchet MS", Font.PLAIN, 18);
+	Font font = initFont();
 	Color textColor = Color.white;
 
 	public void showAll(Container pane, JLabel backGround, JLabel logoLabel, Design des) {
@@ -790,5 +792,20 @@ Formations form = new Formations();
 			}
 		});
 
+	}
+	
+	public Font initFont() {
+		ArrayList<Font> fonts = new ArrayList<>();
+		
+		
+		try {
+			File fontFile = new File("/Users/Krijn/Downloads/Football App/Text files/Champions-Bold.ttf");
+			Font btnFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
+			fonts.add(btnFont);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return fonts.get(0);
 	}
 }
