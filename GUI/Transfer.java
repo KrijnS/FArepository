@@ -102,7 +102,7 @@ public class Transfer {
 		searchTextfield(maxAge, inMaxAge, pane);
 		
 		JTextField minVal = new JTextField("Minimum Value: 100000");
-		minVal.setBounds(40, 620, 180, 35);
+		minVal.setBounds(40, 620, 190, 35);
 		String inMinVal = minVal.getText();
 		searchTextfield(minVal, inMinVal, pane);
 		
@@ -223,25 +223,25 @@ public class Transfer {
 				
 				int minAttInt = 0;
 				
-				if(!(inMinAtt.equals(minAtt.getText()))) {
+				if(!(inMinAtt.equals(minAtt.getText()) || minAtt.getText().equals("-"))) {
 					minAttInt = Integer.parseInt(minAtt.getText());
 				}
 				
 				int maxAttInt = 100;
 				
-				if(!(inMaxAtt.equals(maxAtt.getText()))) {
+				if(!(inMaxAtt.equals(maxAtt.getText()) || maxAtt.getText().equals("-"))) {
 					maxAttInt = Integer.parseInt(maxAtt.getText());
 				}	
 				
 				int minDefInt = 0;
 				
-				if(!(inMinDef.equals(minDef.getText()))) {
+				if(!(inMinDef.equals(minDef.getText()) || minDef.getText().equals("-"))) {
 					minDefInt = Integer.parseInt(minDef.getText());
 				}
 				
 				int maxDefInt = 100;
 				
-				if(!(inMaxDef.equals(maxDef.getText()))) {
+				if(!(inMaxDef.equals(maxDef.getText()) || maxDef.getText().equals("-"))) {
 					maxDefInt = Integer.parseInt(maxDef.getText());
 				}
 			
@@ -721,7 +721,7 @@ public class Transfer {
 	    }
 	    public void focusLost(FocusEvent e) {
 	        if (x.getText().isEmpty()) {
-	        	x.setForeground(Color.DARK_GRAY);
+	        	x.setForeground(Color.LIGHT_GRAY);
 	        	x.setText(input);
 	        }
 	    }
