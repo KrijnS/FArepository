@@ -252,52 +252,26 @@ public static String[] playerFilter(int minAlg, int maxAlg, int minAtt, int maxA
 		ArrayList<Player> allPlayers = readAllPlayers();
 		
 		ArrayList<Player> playersFiltered = new ArrayList<>();
-		
-		for(int i = 0; i < allPlayers.size(); i++) {
-			if(allPlayers.get(i).getAlg() > minAlg && allPlayers.get(i).getAlg() < maxAlg) {
+
+		for (int i = 0; i < allPlayers.size(); i++) {
+			if (allPlayers.get(i).getAlg() > minAlg && allPlayers.get(i).getAlg() < maxAlg
+					&& allPlayers.get(i).getAttack() > minAtt && allPlayers.get(i).getAttack() < maxAtt
+					&& allPlayers.get(i).getDefense() > minDef && allPlayers.get(i).getDefense() < maxDef
+					&& allPlayers.get(i).getAge() > minAge && allPlayers.get(i).getAge() < maxAge
+					//&& allPlayers.get(i).getValue() > minVal && allPlayers.get(i).getValue() < maxVal
+					&& allPlayers.get(i).getPosition().contains(pos)
+					&& allPlayers.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
 				playersFiltered.add(allPlayers.get(i));
-			}
-		}
-			
-		for(int i = 0; i < playersFiltered.size(); i++) {
-			if(playersFiltered.get(i).getAttack() < minAtt || playersFiltered.get(i).getAttack() > maxAtt) {
-				playersFiltered.remove(i);
-			}
-		}
-		
-		for(int i = 0; i < playersFiltered.size(); i++) {
-			if(playersFiltered.get(i).getDefense() < minDef || playersFiltered.get(i).getDefense() > maxDef) {
-				playersFiltered.remove(i);
-			}
-		}
-		
-		for(int i = 0; i < playersFiltered.size(); i++) {
-			if(playersFiltered.get(i).getAge() < minAge || playersFiltered.get(i).getAge() > maxAge) {
-				playersFiltered.remove(i);
-			}
-		}
-		
-		for(int i = 0; i < playersFiltered.size(); i++) {
-			if(playersFiltered.get(i).getValue() < minVal || playersFiltered.get(i).getValue() > maxVal) {
-				playersFiltered.remove(i);
-			}
-		}
-		
-		for(int i = 0; i < playersFiltered.size(); i++) {
-			if(!(playersFiltered.get(i).getPosition().contains(pos))) {
-				playersFiltered.remove(i);
-			}
-		}
-		
-		for(int i = 0; i < playersFiltered.size(); i++) {
-			if(!(playersFiltered.get(i).getName().toLowerCase().contains(name.toLowerCase()))) {
-				playersFiltered.remove(i);
 			}
 		}
 		
 		String[] playerList = new String[playersFiltered.size()];
 		for (int i = 0; i < playersFiltered.size(); i++) {
 			playerList[i] = playersFiltered.get(i).getName();
+		}
+		
+		for(int i = 0; i < playerList.length; i++) {
+			System.out.println(playerList[i]);
 		}
 		return playerList;
 	}
