@@ -74,9 +74,9 @@ public class Competition {
 		while (in.hasNextLine()) {
 			Team y = Team.readTeamName(in);
 			for (int i = 0; i < 10; i++) {
-				y.getPlayers().add(Team.readPlayers(in));
+				y.getPlayers().add(Team.readPlayers(in,y));
 			}
-			y.getGoalkeepers().add(Team.readGoalkeeper(in));
+			y.getGoalkeepers().add(Team.readGoalkeeper(in,y));
 			teams.add(y);
 		}
 
@@ -97,9 +97,9 @@ public class Competition {
 			while (in.hasNextLine()) {
 				Team y = Team.readTeamName(in);
 				for (int i = 0; i < 10; i++) {
-					players.add(Team.readPlayers(in));
+					players.add(Team.readPlayers(in,y));
 				}
-				y.getGoalkeepers().add(Team.readGoalkeeper(in));
+				y.getGoalkeepers().add(Team.readGoalkeeper(in,y));
 			}
 
 			return players;
@@ -120,9 +120,9 @@ public class Competition {
 	while (in.hasNextLine()) {
 		Team y = Team.readTeamName(in);
 		for (int i = 0; i < 10; i++) {
-			Player x = Team.readPlayers(in);
+			Player x = Team.readPlayers(in,y);
 		}
-		players.add(Team.readGoalkeeper(in));
+		players.add(Team.readGoalkeeper(in,y));
 	}
 
 	return players;
@@ -248,7 +248,7 @@ public class Competition {
 	}
 
 
-public static String[] playerFilter(int minAlg, int maxAlg, int minAtt, int maxAtt, int minDef, int maxDef, int minAge, int maxAge, int minVal, int maxVal, String pos, String name) {
+public static String[] playerFilter(int minAlg, int maxAlg, int minAtt, int maxAtt, int minDef, int maxDef, int minAge, int maxAge, int minVal, int maxVal, String pos, String name, String team) {
 		ArrayList<Player> allPlayers = readAllPlayers();
 		ArrayList<Goalkeeper> allKeepers = readAllKeepers();
 		
@@ -260,21 +260,24 @@ public static String[] playerFilter(int minAlg, int maxAlg, int minAtt, int maxA
 					&& allPlayers.get(i).getAttack() >= minAtt && allPlayers.get(i).getAttack() <= maxAtt
 					&& allPlayers.get(i).getDefense() >= minDef && allPlayers.get(i).getDefense() <= maxDef
 					&& allPlayers.get(i).getAge() >= minAge && allPlayers.get(i).getAge() <= maxAge
-					&& (allPlayers.get(i).getValue() >= minVal
-					|| allPlayers.get(i).getValue() == 0) && (allPlayers.get(i).getValue() <= maxVal
-					|| allPlayers.get(i).getValue() == 0) && allPlayers.get(i).getPosition().contains(pos)
-							&& allPlayers.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
+					&& allPlayers.get(i).getValue() >= (minVal / 1000000)
+					&& allPlayers.get(i).getValue() <= (maxVal / 1000000)
+					&& allPlayers.get(i).getPosition().contains(pos)
+					&& allPlayers.get(i).getName().toLowerCase().contains(name.toLowerCase())
+					&& allPlayers.get(i).getTeam().getName().toLowerCase().contains(team.toLowerCase())) {
 				playersFiltered.add(allPlayers.get(i));
 			}
 		}
 
-		if(minAtt == 0 && maxAtt == 100 && minDef == 0 && maxDef == 100) {
+		if (minAtt == 0 && maxAtt == 100 && minDef == 0 && maxDef == 100) {
 			for (int i = 0; i < allKeepers.size(); i++) {
 				if (allKeepers.get(i).getAlg() > minAlg && allKeepers.get(i).getAlg() < maxAlg
 						&& allKeepers.get(i).getAge() > minAge && allKeepers.get(i).getAge() < maxAge
-						&& allKeepers.get(i).getValue() > minVal && allKeepers.get(i).getValue() < maxVal
+						&& allKeepers.get(i).getValue() >= (minVal / 1000000)
+						&& allKeepers.get(i).getValue() <= (maxVal / 1000000)
 						&& allKeepers.get(i).getPosition().contains(pos)
-						&& allKeepers.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
+						&& allKeepers.get(i).getName().toLowerCase().contains(name.toLowerCase())
+						&& allKeepers.get(i).getTeam().getName().toLowerCase().contains(team.toLowerCase())) {
 					keepersFiltered.add(allKeepers.get(i));
 				}
 			}

@@ -12,8 +12,9 @@ public class Goalkeeper {
 	int value;
 	String position;
 	String photoPath;
+	Team team;
 	
-	public Goalkeeper(int alg, int goalkeeping, String name, int number, int age, int cleanSheets, int value, String position, String photoPath) {
+	public Goalkeeper(int alg, int goalkeeping, String name, int number, int age, int cleanSheets, int value, String position, String photoPath, Team team) {
 		this.alg = alg;
 		this.goalkeeping = goalkeeping;
 		this.name = name;
@@ -23,6 +24,15 @@ public class Goalkeeper {
 		this.value = value;
 		this.position = position;
 		this.photoPath = photoPath;
+		this.team = team;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 	public String getPhotoPath() {

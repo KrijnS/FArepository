@@ -16,8 +16,9 @@ public class Player {
 	int value;
 	String position;
 	String photoPath;
+	Team team;
 	
-	public Player(int alg, int attack, int defense, String name, int number, int age, int goals, int value, String position, String photoPath) {
+	public Player(int alg, int attack, int defense, String name, int number, int age, int goals, int value, String position, String photoPath, Team team) {
 		this.alg = alg;
 		this.attack = attack;
 		this.defense = defense;
@@ -28,8 +29,17 @@ public class Player {
 		this.value = value;
 		this.position = position;
 		this.photoPath = photoPath;
+		this.team = team;
 	}
 	
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 	public String getPhotoPath() {
 		return photoPath;
 	}
@@ -141,6 +151,9 @@ public class Player {
 				z = z * doubles.get(calc);
 			}
 			calc++;
+		}
+		if(x.getTeam().getName().equals("Icons")) {
+			z = Double.NaN;
 		}
 		
 		if(x.getAge() > 38) {

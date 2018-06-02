@@ -112,10 +112,16 @@ public class Transfer {
 		searchTextfield(maxVal, inMaxVal, pane);
 		
 		JTextField position = new JTextField("Position: ");
-		position.setBounds(40, 670, 400, 35);
+		position.setBounds(40, 670, 210, 35);
 		String inPos = position.getText();
 		searchTextfield(position, inPos, pane);
-		position.setHorizontalAlignment(JTextField.CENTER);
+		position.setHorizontalAlignment(JTextField.LEFT);
+		
+		JTextField teamSearch = new JTextField("Team: ");
+		teamSearch.setBounds(270, 670, 210, 35);
+		String inTeam = teamSearch.getText();
+		searchTextfield(teamSearch, inTeam, pane);
+		teamSearch.setHorizontalAlignment(JTextField.LEFT);
 		
 		position.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
@@ -281,13 +287,19 @@ public class Transfer {
 					name = playerName.getText();
 				}
 				
+				String team = "";
+				
+				if(!(inTeam.equals(teamSearch.getText()))) {
+					team = teamSearch.getText();
+				}
+				
 				JPanel container = new JPanel();
 				container.setOpaque(false);
 				GridLayout gl = new GridLayout(0, 1, 10, 30);
 				container.setLayout(gl);
 				
 				// get the users from the user file
-				String[] players = Competition.playerFilter(minAlgInt, maxAlgInt, minAttInt, maxAttInt, minDefInt, maxDefInt, minAgeInt, maxAgeInt, minValInt, maxValInt, pos, name);
+				String[] players = Competition.playerFilter(minAlgInt, maxAlgInt, minAttInt, maxAttInt, minDefInt, maxDefInt, minAgeInt, maxAgeInt, minValInt, maxValInt, pos, name, team);
 				Arrays.sort(players, Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
 
 				// get the amount of users
@@ -298,11 +310,13 @@ public class Transfer {
 					JOptionPane.showMessageDialog(pane,
 							"There were no players found.\nPlease search a different name.", "Error",
 							JOptionPane.WARNING_MESSAGE);
+							transferWindow(backGround, logoLabel, pane, des, input);
 				} 
 				else if (i > 50) {
 					JOptionPane.showMessageDialog(pane,
 							"There were too many players found.\nPlease refine your search.", "Error",
 							JOptionPane.WARNING_MESSAGE);
+							transferWindow(backGround, logoLabel, pane, des, input);
 				}else {
 					// add buttons for each user with their own name
 					do {
@@ -458,7 +472,7 @@ public class Transfer {
 	}
 	
 	public void showKeeper(Container pane, Goalkeeper x, Design des, JLabel logoLabel, JLabel backGround, String input) {		
-		String teamName = Competition.getTeamNameKeeper(x);
+		String teamName = x.getTeam().getName();
 		Team z = Competition.getTeamFromName(teamName, competition);
 
 		pane.removeAll();
@@ -568,7 +582,7 @@ public class Transfer {
 	public void showPlayer(Player x, Container pane, Design des, JLabel logoLabel, JLabel backGround, String input) {
 		pane.removeAll();
 		
-		String teamName = Competition.getTeamNamePlayer(x);
+		String teamName = x.getTeam().getName();
 		Team z = Competition.getTeamFromName(teamName, competition);
 		
 		Image img = null;

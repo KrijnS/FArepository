@@ -130,10 +130,10 @@ public class Team {
 		Team x = readTeamName(in);
 
 		for (int i = 0; i < 10; i++) {
-			Player z = readPlayers(in);
+			Player z = readPlayers(in, x);
 			x.getPlayers().add(z);
 		}
-		Goalkeeper y = readGoalkeeper(in);
+		Goalkeeper y = readGoalkeeper(in, x);
 		x.getGoalkeepers().add(y);
 
 		return x;
@@ -149,23 +149,23 @@ public class Team {
 		return x;
 	}
 
-	public static Player readPlayers(Scanner in) {
+	public static Player readPlayers(Scanner in, Team team) {
 		String[] parts = in.nextLine().split(", ");
-
+		
 		Player x = new Player(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]),
 				parts[3], Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), 0, 0, 
-			    parts[6], parts[7]);
+			    parts[6], parts[7], team);
 		
 		x.setValue(x.value(x));
 
 		return x;
 	}
 
-	public static Goalkeeper readGoalkeeper(Scanner in) {
+	public static Goalkeeper readGoalkeeper(Scanner in, Team team) {
 		String[] parts = in.nextLine().split(", ");
 
 		Goalkeeper x = new Goalkeeper(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), parts[2],
-				Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), 0, 0, parts[5], parts[6]);
+				Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), 0, 0, parts[5], parts[6], team);
 		
 		x.setValue(x.value(x));
 

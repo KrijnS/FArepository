@@ -314,6 +314,7 @@ public class ShowTeam {
 				btn_user.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						currentTeam = team;
+						
 						Team z = Competition.getTeamFromName(currentTeam, competition);
 						
 						Image img = null;
