@@ -180,21 +180,16 @@ public class Design {
 	public void mainMenu() {
 		JButton match = new JButton("Play Match");
 		match.setBounds(128, 395, 254, 67);
-		buttonDesign(match);
 
 		JButton toGlory = new JButton("To Glory Mode");
 		toGlory.setBounds(128, 519, 254, 67);
-		buttonDesign(toGlory);
-
+		
 		JButton showSelection = new JButton("Show Selection");
 		showSelection.setBounds(128, 640, 254, 67);
-		buttonDesign(showSelection);
 
 		JButton randomMatch = new JButton("Play Random Match");
 		randomMatch.setBounds(128, 274, 254, 67);
-		buttonDesign(randomMatch);
 		
-	
 		JButton buttonToGlory = new JButton();
 		buttonToGlory.setBounds(108, 499, 320, 100);
 		

@@ -53,11 +53,7 @@ public class ShowTeam {
 	}
 	
 
-	public void showKeeper(Team x, Goalkeeper z, JLabel clubLogo, JLabel backGround, JLabel logoLabel, Container pane, Design des) {		
-		JButton backButton = new JButton("Back");
-		backButton.setBounds(387, 28, 105, 34);
-		Design.buttonDesign(backButton);
-
+	public void showKeeper(Team x, Goalkeeper z, JLabel clubLogo, JLabel backGround, JLabel logoLabel, Container pane, Design des) {	
 		JButton keeper = new JButton(
 				"#" + x.getGoalkeepers().get(0).getNumber() + " " + x.getGoalkeepers().get(0).getName());
 
@@ -68,12 +64,6 @@ public class ShowTeam {
 		keeper.setFont(font);
 		keeper.setHorizontalAlignment(SwingConstants.CENTER);
 		keeper.setBounds(150, 659, 214, 44);
-		
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showFormation(x, backGround, logoLabel, clubLogo, pane, des, special);
-			}
-		});
 
 		pane.add(keeper);
 
@@ -126,6 +116,14 @@ public class ShowTeam {
 
 				JLabel ageAttackDefense = new JLabel("Age: " + z.getAge() + " Goalkeeping: " + z.getGoalkeeping());
 				ageAttackDefense.setBounds(135, 605, 322, 51);
+				
+				JButton backButton = backButton(pane);
+				
+				backButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						showFormation(x, backGround, logoLabel, clubLogo, pane, des, special);
+					}
+				});
 
 				nameNumber.setOpaque(false);
 				team.setOpaque(false);
@@ -148,8 +146,8 @@ public class ShowTeam {
 				ageAttackDefense.setHorizontalAlignment(SwingConstants.CENTER);
 
 				pane.add(nameNumber);
-				pane.add(team);
 				pane.add(backButton);
+				pane.add(team);
 				pane.add(value);
 				pane.add(ageAttackDefense);
 				pane.add(positions);
@@ -177,9 +175,7 @@ public class ShowTeam {
 		JLabel clubLogo = new JLabel(logo);
 		clubLogo.setBounds(30, 470, 134, 134);
 		
-		JButton backButton = new JButton("Back");
-		backButton.setBounds(387, 28, 105, 34);
-		Design.buttonDesign(backButton);
+		JButton backButton = backButton(pane);
 		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -252,7 +248,6 @@ public class ShowTeam {
 		ageAttackDefense.setHorizontalAlignment(SwingConstants.CENTER);
 
 		pane.add(nameNumber);
-		pane.add(backButton);
 		pane.add(playerPhoto);
 		pane.add(positions);
 		pane.add(team);
@@ -265,9 +260,7 @@ public class ShowTeam {
 	public Team showTeams(JLabel backGround, JLabel logoLabel, Competition competition, Container pane, Design des) {
 		pane.removeAll();
 		
-		JButton backButton = new JButton("Back");
-		backButton.setBounds(387, 28, 105, 34);
-		Design.buttonDesign(backButton);
+		JButton backButton = backButton(pane);
 
 		JPanel container = new JPanel();
 		container.setOpaque(false);
@@ -292,7 +285,12 @@ public class ShowTeam {
 			do {
 				// get the username
 				String team = teams[i - 1];
-				JButton btn_user = new JButton(team);
+				JButton btn_user = new JButton();
+				
+				textOnButton(btn_user, team, pane);
+				
+				buttonRollover(btn_user, pane);
+				
 				z = Competition.getTeamFromName(team, competition);
 				Image img = null;
 				try {
@@ -362,7 +360,6 @@ public class ShowTeam {
 		scrollPane.getViewport().setBorder(null);
 
 		// add the scrollpane to the contentpane
-		pane.add(backButton);
 		pane.add(scrollPane);
 		pane.add(logoLabel);
 		pane.add(backGround);
@@ -378,10 +375,8 @@ public class ShowTeam {
 	public void showLeagues(Container pane, Design des, JLabel logoLabel, JLabel backGround) {
 		pane.removeAll();
 
-		JButton backButton = new JButton("Back");
-		backButton.setBounds(387, 28, 105, 34);
-		Design.buttonDesign(backButton);
-
+		JButton backButton = backButton(pane);
+		
 		JPanel container = new JPanel();
 		container.setOpaque(false);
 		GridLayout gl = new GridLayout(0, 1, 60, 50);
@@ -404,8 +399,12 @@ public class ShowTeam {
 			do {
 				// get the username
 				String league = teams[i - 1];
-				JButton btn_user = new JButton(league);
-				Design.buttonDesign(btn_user);
+				JButton btn_user = new JButton();
+				
+				textOnButton(btn_user, league, pane);
+	
+				buttonRollover(btn_user, pane);
+								
 				Image img = null;
 				try {
 					String getPng = "/Users/Krijn/Downloads/Football App/League Logo/" + league + ".png";
@@ -425,6 +424,8 @@ public class ShowTeam {
 				btn_user.add(logoMini);
 				// btn_user.setPreferredSize(new Dimension(0, 80));
 				btn_user.setPreferredSize(null);
+				
+				
 				container.add(btn_user);
 				i = i - 1;
 
@@ -467,7 +468,6 @@ public class ShowTeam {
 		scrollPane.getViewport().setBorder(null);
 
 		// add the scrollpane to the contentpane
-		pane.add(backButton);
 		pane.add(scrollPane);
 		pane.add(logoLabel);
 		pane.add(backGround);
@@ -484,9 +484,7 @@ public class ShowTeam {
 		
 		showKeeper(x, x.getGoalkeepers().get(0), clubLogo, backGround, logoLabel, pane, des);
 	
-		JButton backButton = new JButton("Back");
-		backButton.setBounds(387, 28, 105, 34);
-		Design.buttonDesign(backButton);
+		JButton backButton = backButton(pane);
 
 		JLabel formation = new JLabel(x.getFormation());
 		formation.setBounds(39, 206, 96, 48);
@@ -659,7 +657,6 @@ public class ShowTeam {
 		pane.add(nine);
 		pane.add(ten);
 		
-		pane.add(backButton);
 		pane.add(logoLabel);
 		pane.add(backGround);
 		
@@ -808,4 +805,78 @@ public class ShowTeam {
 		}
 		return fonts.get(0);
 	}
+	
+	public void buttonRollover(JButton btn, Container pane) {
+		Image buttonImg1 = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomed.png";
+			File buttonFile = new File(fileName);
+			buttonImg1 = ImageIO.read(buttonFile);
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		Image buttonSized = buttonImg1.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
+		ImageIcon button = new ImageIcon(buttonSized);
+		
+		btn.setIcon(button);
+		
+		Image buttonImg2 = null;
+		
+		try {
+			String fileName = "/Users/Krijn/Downloads/Football App/Other photos/buttonCustomedPicked.png";
+			File buttonFile = new File(fileName);
+			buttonImg2 = ImageIO.read(buttonFile);
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		Image buttonSized2 = buttonImg2.getScaledInstance(320, 85, Image.SCALE_SMOOTH);
+		ImageIcon button2 = new ImageIcon(buttonSized2);
+		btn.setFocusPainted(false);
+		btn.setBorderPainted(false);
+		
+		btn.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	
+		        btn.setIcon(button2);
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btn.setIcon(button);
+		    }
+		});
+		
+	}
+	
+	public void textOnButton(JButton button, String input, Container pane) {
+		button.setContentAreaFilled(false);
+		button.setBorder(null);
+		
+		JLabel toGloryLabel = new JLabel(input);
+		toGloryLabel.setFont(font);
+		toGloryLabel.setForeground(textColor);
+		toGloryLabel.setOpaque(false);
+		toGloryLabel.setBorder(null);
+		toGloryLabel.setBounds((button.getX() + 35), (button.getY() + 8), (button.getWidth()/2), (button.getHeight()/2));
+		
+		pane.add(toGloryLabel);
+		pane.add(button);
+	}
+	
+	public JButton backButton(Container pane) {
+		String back = new String("Back");
+		JButton backButton = new JButton();
+		backButton.setBounds(387, 28, 105, 34);
+
+		textOnButton(backButton, back, pane);
+		
+		buttonRollover(backButton, pane);
+		
+		return backButton;
+	}
+	
 }

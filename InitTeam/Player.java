@@ -191,6 +191,10 @@ public class Player {
 			z = z * 0.85;
 		}
 		int c = (int) z;
+		
+		if(c == 0) {
+			c = 1;
+		}
 		return c;
 	}
 	
